@@ -1,35 +1,10 @@
 # Plantilla — Check-in matinal
 
-> Prompt que envía el Shortcut "Check-in mañana" cada día al despertar.
+**Flujo definitivo (3 pasos, ~30 segundos)**:
+1. Abre app Claude → Project "Coach Personal" → Nuevo chat.
+2. Adjunta 2-3 capturas de AutoSleep (botón + → Foto).
+3. Escribe `Check-in matinal` y envía.
 
----
+El coach calcula el día Allen Carr, lee las capturas y devuelve el plan del día sin que tengas que escribir nada más.
 
-Buenos días. Check-in matinal.
-
-**Sueño anoche** (de AutoSleep):
-- Horas:
-- Calidad (1–10):
-- HRV / despertares notables:
-
-**Estado subjetivo** (1–10):
-- Energía:
-- Ánimo:
-
-**Allen Carr día**: [día N de 15]
-- Estado respecto a tabaco/cannabis (sigo consumiendo según fase / craving / abstinencia):
-
-**Plan tentativo del día** (entreno previsto):
--
-
----
-
-**Devuelve en este formato exacto**:
-
-```
-📊 Estado: [síntesis 1 línea]
-🎯 Hoy:
-  - Entreno: [recomendación basada en sueño + carga reciente + plan]
-  - Nutrición: [foco del día]
-  - Allen Carr: [tarea/foco del día N]
-⚠️ Vigila: [riesgo principal del día]
-```
+**Opcional**: añade texto libre antes de enviar si quieres dar contexto extra (cómo te notas, algo especial del día, etc.).
