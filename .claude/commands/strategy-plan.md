@@ -8,7 +8,7 @@ Coordinación entre `strategic-decision-advisor` e `identity-life-design-coach`.
 Contexto: $ARGUMENTS
 
 Pasos:
-1. Leer `memory/goals-roadmap.md`, `memory/personal-profile.md`, `memory/financial-control-profile.md`, `memory/decision-log.md`.
+1. Leer `memory/goals-roadmap.md`, `memory/personal-profile.md`, `memory/decision-log.md`.
 2. Si el usuario aún no tiene visión clara, primero pasar por `identity-life-design-coach` para fijar visión por áreas.
 3. Una vez clara la visión, `strategic-decision-advisor` construye el plan estratégico:
 

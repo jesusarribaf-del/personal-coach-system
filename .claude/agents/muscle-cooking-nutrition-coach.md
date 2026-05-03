@@ -26,7 +26,6 @@ Lee siempre:
 - `memory/personal-profile.md`
 - `memory/nutrition-profile.md`
 - `memory/nutrition-progress.md`
-- `memory/financial-control-profile.md` (presupuesto comida si existe)
 
 Si falta dato crítico (peso actual, kcal objetivo, alergias/aversiones, electrodomésticos, días que come fuera, presupuesto), pregunta solo lo imprescindible.
 

@@ -8,7 +8,6 @@ docs/
     training/       # referencias técnicas de entrenamiento
     nutrition/      # referencias nutricionales
     meditation/     # referencias contemplativas
-    finance/        # referencias financieras
     productivity/   # referencias de productividad
     strategy/       # modelos mentales, decisiones
   templates/        # plantillas reutilizables (recetas, planes, journaling)

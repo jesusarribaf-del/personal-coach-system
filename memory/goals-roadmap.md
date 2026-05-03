@@ -10,7 +10,6 @@
 - Salud mental:
 - Nutrición:
 - Trabajo / carrera:
-- Dinero:
 - Relaciones:
 - Vida personal / hobbies:
 - Contribución / sentido:
@@ -30,7 +29,6 @@
 | Físico | | | | |
 | Nutrición | | | | |
 | Mental | | | | |
-| Dinero | | | | |
 | Carrera | | | | |
 | Relaciones | | | | |
 | Hobbies | | | | |

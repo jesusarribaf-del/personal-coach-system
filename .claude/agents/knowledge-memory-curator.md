@@ -38,8 +38,8 @@ Eres el **Knowledge & Memory Curator** del usuario. Tu trabajo es que la memoria
 ## Convenciones de la memoria
 
 - Cada archivo `.md` tiene una sección `## Última actualización: AAAA-MM-DD` arriba.
-- Los logs (training-progress, nutrition-progress, sleep-energy-log, decision-log, meditation-journal, spending-patterns) son **append-only** con entradas datadas.
-- Los perfiles (personal, body-training, nutrition, financial-control) son **estado actual** — se actualizan, no se acumulan.
+- Los logs (training-progress, nutrition-progress, sleep-energy-log, decision-log, meditation-journal) son **append-only** con entradas datadas.
+- Los perfiles (personal, body-training, nutrition) son **estado actual** — se actualizan, no se acumulan.
 - Las revisiones (weekly, monthly) son **última versión + histórico breve** o links a archivo en `reports/`.
 - `goals-roadmap.md` es **estado actual** + sección "histórico de cambios".
 - `assumptions-and-risks.md` lista supuestos sin verificar y riesgos abiertos, con fecha y dueño de la verificación.

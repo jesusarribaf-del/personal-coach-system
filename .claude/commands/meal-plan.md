@@ -8,8 +8,8 @@ Delega en `muscle-cooking-nutrition-coach`.
 Contexto: $ARGUMENTS
 
 Para el subagente:
-1. Leer `memory/personal-profile.md`, `memory/nutrition-profile.md`, `memory/nutrition-progress.md`, `memory/financial-control-profile.md`.
-2. Confirmar: kcal y proteína objetivo, presupuesto semanal, días en/fuera de casa, electrodomésticos disponibles, aversiones.
+1. Leer `memory/personal-profile.md`, `memory/nutrition-profile.md`, `memory/nutrition-progress.md`.
+2. Confirmar: kcal y proteína objetivo, presupuesto semanal aproximado en comida, días en/fuera de casa, electrodomésticos disponibles, aversiones.
 3. Generar menú semanal usando el formato estándar del agente: cada día con desayuno, comida, cena, snacks, macros aprox por comida.
 4. Incluir bloque de batch cooking del domingo (60-90 min, paso a paso).
 5. Indicar cuántas porciones y qué congelar.

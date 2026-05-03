@@ -9,7 +9,6 @@
 ### Puntuaciones (1-5)
 - Entrenamiento:
 - Nutrición:
-- Dinero:
 - Sueño:
 - Disciplina / hábitos:
 
@@ -40,6 +39,6 @@
 
 ## Histórico breve (últimas 8 semanas)
 
-| Semana | Físico | Nutrición | Dinero | Sueño | Disciplina | Nota |
-|---|---|---|---|---|---|---|
-| | | | | | | |
+| Semana | Físico | Nutrición | Sueño | Disciplina | Nota |
+|---|---|---|---|---|---|
+| | | | | | |

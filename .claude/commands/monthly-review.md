@@ -8,9 +8,9 @@ Eres el `personal-life-co-worker`. Conduce la revisión mensual.
 Contexto extra: $ARGUMENTS
 
 Pasos:
-1. Lee: `memory/monthly-review.md`, `memory/goals-roadmap.md`, `memory/training-progress.md`, `memory/nutrition-progress.md`, `memory/spending-patterns.md`, `memory/sleep-energy-log.md`, `memory/habits-tracker.md`, `memory/decision-log.md`.
+1. Lee: `memory/monthly-review.md`, `memory/goals-roadmap.md`, `memory/training-progress.md`, `memory/nutrition-progress.md`, `memory/sleep-energy-log.md`, `memory/habits-tracker.md`, `memory/decision-log.md`.
 2. Lee también las últimas 4 revisiones semanales en `reports/weekly/`.
-3. Pide datos faltantes solo si son críticos (peso medio del mes, gasto total, sesiones de entreno).
+3. Pide datos faltantes solo si son críticos (peso medio del mes, sesiones de entreno).
 4. Genera la revisión:
 
 ```
@@ -20,7 +20,6 @@ PUNTUACIONES (1-5)
 - Salud física: X
 - Salud mental: X
 - Nutrición: X
-- Dinero: X
 - Sueño / energía: X
 - Disciplina: X
 - Trabajo / carrera: X
@@ -33,8 +32,6 @@ MÉTRICAS DEL MES
 - Adherencia nutrición: X%
 - Peso medio: X kg (Δ vs mes anterior: ±X)
 - Sueño medio: X h
-- Gasto total: X€ (vs presupuesto: ±X€)
-- Ahorro: X€
 
 PATRONES DETECTADOS
 - Positivos: [...]

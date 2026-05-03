@@ -10,7 +10,6 @@
 - Salud física:
 - Salud mental:
 - Nutrición:
-- Dinero:
 - Sueño / energía:
 - Disciplina:
 - Trabajo / carrera:
@@ -23,8 +22,6 @@
 - Adherencia nutrición (%):
 - Peso medio (kg):
 - Sueño medio (h):
-- Gasto total (€):
-- Ahorro (€):
 
 ### Patrones positivos
 -
@@ -50,6 +47,6 @@
 
 ## Histórico breve (últimos 6 meses)
 
-| Mes | Físico | Nutrición | Dinero | Sueño | Disciplina | Nota |
-|---|---|---|---|---|---|---|
-| | | | | | | |
+| Mes | Físico | Nutrición | Sueño | Disciplina | Nota |
+|---|---|---|---|---|---|
+| | | | | | |

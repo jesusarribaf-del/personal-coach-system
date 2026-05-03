@@ -39,7 +39,7 @@
 ## Relaciones y apoyo
 
 - Red cercana (sí/no, calidad):
-- Acceso a profesionales (médico, fisio, psicólogo, asesor financiero):
+- Acceso a profesionales (médico, fisio, psicólogo):
 
 ## Lo que NO funciona en sistemas anteriores
 

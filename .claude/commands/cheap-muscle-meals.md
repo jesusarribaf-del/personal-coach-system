@@ -8,7 +8,7 @@ Delega en `muscle-cooking-nutrition-coach`.
 Contexto: $ARGUMENTS
 
 Para el subagente:
-1. Leer `memory/nutrition-profile.md` y `memory/financial-control-profile.md`.
+1. Leer `memory/nutrition-profile.md`.
 2. Ofrecer 5-8 recetas con:
 
 ```

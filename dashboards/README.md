@@ -4,10 +4,9 @@ Vistas agregadas para escaneo rápido del estado.
 
 ```
 dashboards/
-  personal/    # vista global integrada (cuerpo, mente, dinero, sueño)
+  personal/    # vista global integrada (cuerpo, mente, sueño)
   training/    # marcas, volumen semanal, progresión
-  finance/     # gasto vs presupuesto, ahorro, colchón
-  nutrition/   # peso, adherencia, proteína, gasto comida
+  nutrition/   # peso, adherencia, proteína
 ```
 
 ## Para qué sirven
@@ -28,7 +27,6 @@ Markdown con tablas y semáforos (✅ / ⚠ / 🔴). Pueden generarse manualment
 - Físico: ✅
 - Nutrición: ⚠
 - Mente: ✅
-- Dinero: 🔴
 - Sueño: ✅
 - Disciplina: ⚠
 ```

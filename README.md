@@ -6,26 +6,25 @@ Sistema personal de alto rendimiento operado mediante agentes de Claude Code. No
 
 ## Qué es
 
-Un compañero personal senior que ayuda a **ejecutar**, no solo a responder. Cubre cuerpo, mente, dinero, tiempo, energía, decisiones y dirección vital — con un agente principal y 10 subagentes especialistas, memoria persistente y rutinas reutilizables vía slash commands.
+Un compañero personal senior que ayuda a **ejecutar**, no solo a responder. Cubre cuerpo, mente, tiempo, energía, decisiones y dirección vital — con un agente principal y 9 subagentes especialistas, memoria persistente y rutinas reutilizables vía slash commands.
 
 ## Arquitectura
 
 ```
 .claude/
-  agents/                                 # 1 main + 10 subagentes
+  agents/                                 # 1 main + 9 subagentes
     personal-life-co-worker.md            # punto de entrada
     strength-conditioning-coach.md
     muscle-cooking-nutrition-coach.md
     meditation-mindfulness-guide.md
     strategic-decision-advisor.md
     motivation-discipline-coach.md
-    financial-control-partner.md
     productivity-systems-builder.md
     recovery-sleep-energy-coach.md
     identity-life-design-coach.md
     knowledge-memory-curator.md
-  commands/                               # 26 slash commands
-memory/                                   # estado del usuario (15 archivos)
+  commands/                               # 24 slash commands
+memory/                                   # estado del usuario (13 archivos)
 data/                                     # datos crudos y procesados
 docs/                                     # referencias, plantillas, ejemplos
 reports/                                  # weekly, monthly, quarterly
@@ -38,11 +37,10 @@ CLAUDE.md                                 # instrucciones globales
 
 1. **Rellena `memory/personal-profile.md`** con tus datos reales (edad, peso, altura, ocupación, salud base).
 2. **Rellena `memory/body-training-profile.md`** (objetivo, marcas, lesiones, material).
-3. **Rellena `memory/nutrition-profile.md`** (objetivo nutricional, restricciones, electrodomésticos, presupuesto).
-4. **Rellena `memory/financial-control-profile.md`** (ingreso, gastos fijos, deuda, ahorro).
-5. **Rellena `memory/goals-roadmap.md`** con tu visión a 12 meses (mínimo).
-6. Lanza `/life-roadmap` si quieres construir la visión guiada.
-7. Lanza `/daily-plan` para tu primer día con el sistema.
+3. **Rellena `memory/nutrition-profile.md`** (objetivo nutricional, restricciones, electrodomésticos).
+4. **Rellena `memory/goals-roadmap.md`** con tu visión a 12 meses (mínimo).
+5. Lanza `/life-roadmap` si quieres construir la visión guiada.
+6. Lanza `/daily-plan` para tu primer día con el sistema.
 
 ## Uso diario
 
@@ -51,11 +49,10 @@ CLAUDE.md                                 # instrucciones globales
 | Mañana (5 min) | `/daily-plan` | Plan integrado del día |
 | Antes/después de entrenar | `/training-plan` o `/workout-review` | Diseño o diagnóstico |
 | Al pensar el menú | `/meal-plan` → `/shopping-list` → `/batch-cooking` | Pipeline completo |
-| Tras impulso de gasto | `/money-check` | Aplicación de regla 72h |
 | Cuando no quieres entrenar | `/motivation-reset` | Diagnóstico + acción mínima |
 | Antes de dormir | `/night-routine` | Cierre del día |
 | Domingo | `/weekly-review` | Ritual semanal |
-| Fin de mes | `/monthly-review` + `/spending-audit` | Revisión completa |
+| Fin de mes | `/monthly-review` | Revisión completa |
 | Decisión importante | `/decision-analysis` | Análisis estratégico |
 
 ## Comandos disponibles
@@ -69,8 +66,6 @@ Mental y calma: `/meditation` `/morning-routine` `/night-routine`
 Decisiones y estrategia: `/decision-analysis` `/strategy-plan` `/life-roadmap`
 
 Disciplina y hábitos: `/motivation-reset` `/discipline-check` `/habit-builder`
-
-Dinero: `/spending-audit` `/money-check`
 
 Sueño y energía: `/sleep-review` `/energy-reset`
 
@@ -86,7 +81,6 @@ Invocables vía Task / Agent o referenciados desde el agente principal según co
 - **`meditation-mindfulness-guide`** — calma y conciencia.
 - **`strategic-decision-advisor`** — decisiones y estrategia.
 - **`motivation-discipline-coach`** — hábitos y disciplina.
-- **`financial-control-partner`** — control de gasto.
 - **`productivity-systems-builder`** — organización y sistemas.
 - **`recovery-sleep-energy-coach`** — sueño, energía, recuperación.
 - **`identity-life-design-coach`** — propósito y diseño de vida.
@@ -106,18 +100,17 @@ Periódicamente se invoca a `knowledge-memory-curator` para auditar y limpiar.
 ## Reglas de seguridad transversales
 
 - No diagnóstico médico (físico ni mental).
-- No sustituye médico, psicólogo, fisioterapeuta, nutricionista clínico ni asesor financiero regulado.
+- No sustituye médico, psicólogo, fisioterapeuta ni nutricionista clínico.
 - Síntomas serios o crisis → derivar a profesional cualificado.
 - En entrenamiento: técnica y progresión antes que carga.
 - En nutrición: sin extremismos.
-- En finanzas: sin promesas de rentabilidad ni instrumentos complejos.
 - En meditación: sin afirmaciones médicas ni espirituales como hechos.
 
 ## Mantenimiento
 
 - **Diario:** `/daily-plan` por la mañana, registro mínimo por la noche.
 - **Semanal:** `/weekly-review` el domingo (30-45 min).
-- **Mensual:** `/monthly-review` + `/spending-audit`.
+- **Mensual:** `/monthly-review`.
 - **Trimestral:** revisar `goals-roadmap.md`, `/life-roadmap`, auditoría de memoria.
 
 ## Filosofía operativa

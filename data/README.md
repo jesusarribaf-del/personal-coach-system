@@ -7,8 +7,7 @@ data/
   raw/
     training/    # exports de Jefit, capturas, logs en bruto
     nutrition/   # menús semanales, listas de la compra, recetas
-    finance/     # extractos bancarios, exports de apps de gasto
-    sleep/       # exports de AutoSleep, Apple Health, Garmin, etc.
+    sleep/       # exports/capturas de AutoSleep, Apple Health, Garmin, etc.
     habits/      # logs de hábitos en bruto
     medical/     # analíticas, informes (privados)
   processed/     # datos limpios para análisis
@@ -21,7 +20,7 @@ data/
 
 ## Privacidad
 
-`data/raw/medical/` y `data/raw/finance/` contienen información especialmente sensible. Considerar:
+`data/raw/medical/` contiene información especialmente sensible. Considerar:
 - Repo privado obligatorio.
 - Gitignorar si se hace push.
 - No subir a servicios de terceros sin cifrado.

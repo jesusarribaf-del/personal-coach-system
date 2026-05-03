@@ -1,6 +1,6 @@
 ---
-description: Revisión nutricional: adherencia, peso, proteína, gasto y ajustes.
-argument-hint: [periodo: semana/mes; datos: peso, adherencia, gasto]
+description: Revisión nutricional: adherencia, peso, proteína y ajustes.
+argument-hint: [periodo: semana/mes; datos: peso, adherencia]
 ---
 
 Delega en `muscle-cooking-nutrition-coach`.
@@ -8,8 +8,8 @@ Delega en `muscle-cooking-nutrition-coach`.
 Contexto: $ARGUMENTS
 
 Para el subagente:
-1. Leer `memory/nutrition-progress.md`, `memory/nutrition-profile.md`, `memory/spending-patterns.md`.
-2. Pedir datos faltantes (peso medio, adherencia estimada %, gasto en comida del periodo).
+1. Leer `memory/nutrition-progress.md`, `memory/nutrition-profile.md`.
+2. Pedir datos faltantes (peso medio, adherencia estimada %, coste medio de la compra del periodo si aplica).
 3. Devolver:
 
 ```
@@ -19,7 +19,7 @@ ESTADO
 - Peso medio: X kg (Δ: ±X)
 - Adherencia: X%
 - Proteína estimada/día: Xg (objetivo: Y)
-- Gasto en comida: X€ (objetivo: Y)
+- Coste medio compra: X€ (referencia)
 
 ANÁLISIS
 - Qué funciona: [...]

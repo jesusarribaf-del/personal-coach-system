@@ -5,9 +5,9 @@ Estado persistente del usuario. Fuente única de verdad para todos los agentes.
 ## Convenciones
 
 - Cada archivo `.md` lleva una sección `## Última actualización: AAAA-MM-DD`.
-- **Perfiles** (personal, body-training, nutrition, financial-control): estado actual, se sobrescriben.
+- **Perfiles** (personal, body-training, nutrition): estado actual, se sobrescriben.
 - **Roadmap y reviews**: estado actual + sección "histórico".
-- **Logs** (training-progress, nutrition-progress, sleep-energy-log, decision-log, meditation-journal, spending-patterns): append-only con fechas.
+- **Logs** (training-progress, nutrition-progress, sleep-energy-log, decision-log, meditation-journal): append-only con fechas.
 - **Tracker**: `habits-tracker.md` con adherencia semanal.
 - **Risks**: `assumptions-and-risks.md` lista viva.
 

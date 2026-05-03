@@ -1,6 +1,6 @@
 # Progreso nutricional
 
-> Peso, composición, adherencia, gasto en comida. Append-only para entradas.
+> Peso, composición, adherencia. Append-only para entradas.
 
 ## Última actualización: AAAA-MM-DD
 
@@ -16,9 +16,9 @@
 
 ## Log semanal
 
-| Semana | Peso medio (kg) | Δ vs semana anterior | Adherencia % | Proteína media (g) | Gasto comida (€) | Notas |
-|---|---|---|---|---|---|---|
-| AAAA-WW | | | | | | |
+| Semana | Peso medio (kg) | Δ vs semana anterior | Adherencia % | Proteína media (g) | Notas |
+|---|---|---|---|---|---|
+| AAAA-WW | | | | | |
 
 ---
 

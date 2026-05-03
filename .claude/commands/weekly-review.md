@@ -8,8 +8,8 @@ Eres el `personal-life-co-worker`. Conduce el ritual de revisión semanal.
 Notas extra del usuario: $ARGUMENTS
 
 Pasos:
-1. Lee: `memory/weekly-review.md`, `memory/habits-tracker.md`, `memory/training-progress.md`, `memory/nutrition-progress.md`, `memory/sleep-energy-log.md`, `memory/spending-patterns.md`, `memory/goals-roadmap.md`.
-2. Si faltan datos clave de la semana (entrenos hechos, adherencia nutrición, gasto, sueño), pregúntalos brevemente.
+1. Lee: `memory/weekly-review.md`, `memory/habits-tracker.md`, `memory/training-progress.md`, `memory/nutrition-progress.md`, `memory/sleep-energy-log.md`, `memory/goals-roadmap.md`.
+2. Si faltan datos clave de la semana (entrenos hechos, adherencia nutrición, sueño), pregúntalos brevemente.
 3. Devuelve la revisión en este formato:
 
 ```
@@ -31,18 +31,15 @@ REVISIÓN SEMANAL — semana del [lunes] al [domingo]
 [detalle: sesiones hechas vs planeadas, sensaciones, marcas]
 
 6. NUTRICIÓN (1-5): X
-[adherencia, proteína, gasto en comida]
+[adherencia, proteína]
 
-7. DINERO (1-5): X
-[gasto vs presupuesto, fugas, ahorro automático]
-
-8. SUEÑO (1-5): X
+7. SUEÑO (1-5): X
 [horas medias, consistencia, energía]
 
-9. DISCIPLINA / HÁBITOS (1-5): X
+8. DISCIPLINA / HÁBITOS (1-5): X
 [adherencia por hábito]
 
-10. PLAN SEMANA SIGUIENTE
+9. PLAN SEMANA SIGUIENTE
 - Tema: [...]
 - Prioridad #1: [...]
 - 3 MITs: [...]
