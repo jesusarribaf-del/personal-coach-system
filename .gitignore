@@ -1,0 +1,19 @@
+# Datos personales sensibles — no subir a repos públicos
+# Comentar/descomentar según política de privacidad.
+
+# data/raw/medical/
+# data/raw/finance/
+# memory/
+
+# Sistema
+.DS_Store
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Temporales
+*.tmp
+*.log
+*.bak
