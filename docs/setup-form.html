@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Personal Life Co-Worker — Cuestionario de configuración</title>
+<style>
+  :root {
+    --bg: #0e1116;
+    --panel: #161b22;
+    --panel-2: #1f2630;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --accent-2: #2ea043;
+    --warn: #f85149;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
+  }
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  header {
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 18px;
+  }
+  h1 {
+    font-size: 26px;
+    margin: 0 0 6px;
+    font-weight: 700;
+  }
+  header p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .progress-wrap {
+    margin: 18px 0 6px;
+    background: var(--panel-2);
+    border-radius: 999px;
+    height: 6px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 200ms ease;
+  }
+  .progress-label {
+    color: var(--muted);
+    font-size: 12px;
+    text-align: right;
+    margin-top: 4px;
+  }
+  details {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    padding: 0;
+  }
+  details[open] {
+    background: var(--panel);
+  }
+  summary {
+    cursor: pointer;
+    padding: 14px 18px;
+    font-size: 16px;
+    font-weight: 600;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: "▸";
+    color: var(--muted);
+    transition: transform 200ms;
+  }
+  details[open] > summary::after {
+    transform: rotate(90deg);
+  }
+  .section-body {
+    padding: 4px 18px 18px;
+    border-top: 1px solid var(--border);
+  }
+  .field {
+    margin: 14px 0;
+  }
+  .field label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .field .hint {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 400;
+    margin-bottom: 6px;
+    margin-top: -2px;
+    display: block;
+  }
+  input[type="text"],
+  input[type="number"],
+  textarea,
+  select {
+    width: 100%;
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 11px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+  }
+  textarea { min-height: 70px; }
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2);
+  }
+  .checkboxes, .radios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pill {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .pill input { display: none; }
+  .pill.on {
+    background: rgba(88, 166, 255, 0.15);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 600px) {
+    .row-2 { grid-template-columns: 1fr; }
+  }
+  .actions {
+    position: sticky;
+    bottom: 0;
+    background: var(--bg);
+    padding: 14px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 24px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  button {
+    background: var(--accent);
+    color: #0e1116;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  button.secondary {
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  button.danger {
+    background: transparent;
+    color: var(--warn);
+    border: 1px solid var(--warn);
+  }
+  button:hover { opacity: 0.9; }
+  #output {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-top: 16px;
+    white-space: pre-wrap;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12.5px;
+    max-height: 420px;
+    overflow: auto;
+    display: none;
+  }
+  .note {
+    background: rgba(46, 160, 67, 0.08);
+    border: 1px solid rgba(46, 160, 67, 0.4);
+    color: #56d364;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-top: 10px;
+    display: none;
+  }
+  .small { font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Personal Life Co-Worker — Cuestionario de configuración</h1>
+    <p>Rellena lo que sepas. Lo que no, déjalo en blanco. Tu progreso se guarda automáticamente en este navegador. Al final, pulsa <strong>Generar respuesta</strong>, copia el bloque y pégamelo en el chat.</p>
+    <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="progress-label" id="progressLabel">0% completado</div>
+  </header>
+
+  <form id="setupForm">
+
+    <!-- ===================== STRENGTH ===================== -->
+    <details open data-section="strength-conditioning">
+      <summary>Strength &amp; Conditioning Coach</summary>
+      <div class="section-body">
+
+        <div class="field">
+          <label>Años entrenando (cualquier disciplina con cargas o boxeo)</label>
+          <input type="text" name="strength.anos" placeholder="ej. 4 años intermitentes / 7 años continuos">
+        </div>
+
+        <div class="field">
+          <label>Marcas actuales aproximadas (lo que sepas)</label>
+          <span class="hint">Series de 1 o 5 reps. Si no las conoces, déjalo vacío.</span>
+          <div class="row-2">
+            <input type="text" name="strength.sentadilla" placeholder="Sentadilla — kg × reps">
+            <input type="text" name="strength.banca" placeholder="Press banca — kg × reps">
+            <input type="text" name="strength.pesomuerto" placeholder="Peso muerto — kg × reps">
+            <input type="text" name="strength.militar" placeholder="Press militar — kg × reps">
+            <input type="text" name="strength.dominadas" placeholder="Dominadas — reps máx">
+            <input type="text" name="strength.otras" placeholder="Otras (hip thrust, remo…)">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Método de entrenamiento preferido (si tienes uno)</label>
+          <span class="hint">PPL, Upper-Lower, full-body, 5/3/1, RP-style, distribución libre, no tengo preferencia…</span>
+          <input type="text" name="strength.metodo" placeholder="ej. Upper-Lower 4 días + boxeo 2 días">
+        </div>
+
+        <div class="field">
+          <label>Material y entorno disponible</label>
+          <span class="hint">Gimnasio comercial, garage gym, casa con poco material, mixto…</span>
+          <textarea name="strength.material" placeholder="ej. Gym comercial L-V, en casa solo bandas y mancuernas hasta 20kg"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Frecuencia real disponible por semana</label>
+          <div class="row-2">
+            <input type="text" name="strength.freq_fuerza" placeholder="Fuerza — días/semana">
+            <input type="text" name="strength.freq_cardio" placeholder="Cardio — días/semana">
+            <input type="text" name="strength.freq_boxeo" placeholder="Boxeo — días/semana">
+            <input type="text" name="strength.tiempo_sesion" placeholder="Tiempo medio por sesión (min)">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Boxeo — nivel y contexto</label>
+          <span class="hint">Principiante / intermedio / avanzado · saco en casa, gimnasio con entrenador, sparring, solo técnica…</span>
+          <textarea name="strength.boxeo" placeholder="ej. Intermedio. Gimnasio 2/sem con entrenador, sparring ligero ocasional. Saco en casa para días sueltos."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Lesiones activas o crónicas a respetar</label>
+          <textarea name="strength.lesiones" placeholder="ej. Manguito hombro derecho desde 2022 — me molesta press inclinado pesado."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Tracker que ya usas</label>
+          <input type="text" name="strength.tracker" placeholder="Jefit, Strong, Hevy, libreta, Apple Notes…">
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ===================== NUTRITION ===================== -->
+    <details data-section="nutrition">
+      <summary>Muscle Cooking &amp; Nutrition Coach</summary>
+      <div class="section-body">
+
+        <div class="row-2">
+          <div class="field">
+            <label>Peso actual (kg)</label>
+            <input type="number" step="0.1" name="nutrition.peso" placeholder="ej. 78.5">
+          </div>
+          <div class="field">
+            <label>Altura (cm)</label>
+            <input type="number" name="nutrition.altura" placeholder="ej. 178">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Objetivo nutricional</label>
+          <div class="radios" data-name="nutrition.objetivo">
+            <label class="pill"><input type="radio" name="nutrition.objetivo" value="volumen">Volumen controlado</label>
+            <label class="pill"><input type="radio" name="nutrition.objetivo" value="mantener">Mantener</label>
+            <label class="pill"><input type="radio" name="nutrition.objetivo" value="recomp">Recomp</label>
+            <label class="pill"><input type="radio" name="nutrition.objetivo" value="definir">Definir</label>
+          </div>
+        </div>
+
+        <div class="row-2">
+          <div class="field">
+            <label>Kcal/día actuales (si las conoces)</label>
+            <input type="number" name="nutrition.kcal" placeholder="ej. 2800">
+          </div>
+          <div class="field">
+            <label>Proteína actual g/día (si la conoces)</label>
+            <input type="number" name="nutrition.proteina" placeholder="ej. 160">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Restricciones, alergias, alimentos que detestas</label>
+          <textarea name="nutrition.restricciones" placeholder="ej. Intolerancia leve a la lactosa. No como pescado azul. Vegetariano flexible."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Días que comes fuera de casa por semana y dónde</label>
+          <textarea name="nutrition.fuera_casa" placeholder="ej. 3 días en oficina (tupper), 1 día restaurante con clientes, fin de semana en casa."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Electrodomésticos disponibles</label>
+          <div class="checkboxes" data-name="nutrition.electrodomesticos">
+            <label class="pill"><input type="checkbox" name="nutrition.electrodomesticos" value="horno">Horno</label>
+            <label class="pill"><input type="checkbox" name="nutrition.electrodomesticos" value="vitro_induccion">Vitro/Inducción</label>
+            <label class="pill"><input type="checkbox" name="nutrition.electrodomesticos" value="freidora_aire">Freidora de aire</label>
+            <label class="pill"><input type="checkbox" name="nutrition.electrodomesticos" value="microondas">Microondas</label>
+            <label class="pill"><input type="checkbox" name="nutrition.electrodomesticos" value="tostadora">Tostadora</label>
+            <label class="pill"><input type="checkbox" name="nutrition.electrodomesticos" value="batidora">Batidora</label>
+            <label class="pill"><input type="checkbox" name="nutrition.electrodomesticos" value="robot">Robot de cocina</label>
+            <label class="pill"><input type="checkbox" name="nutrition.electrodomesticos" value="bascula">Báscula de cocina</label>
+            <label class="pill"><input type="checkbox" name="nutrition.electrodomesticos" value="slow_cooker">Slow cooker</label>
+            <label class="pill"><input type="checkbox" name="nutrition.electrodomesticos" value="thermomix">Thermomix</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Suplementación actual</label>
+          <textarea name="nutrition.suplementos" placeholder="ej. Creatina 5g/día, proteína whey post-entreno, vit D 2000UI invierno."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Presupuesto semanal aproximado para comida (€)</label>
+          <input type="number" name="nutrition.presupuesto" placeholder="ej. 60">
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ===================== MEDITATION ===================== -->
+    <details data-section="meditation">
+      <summary>Meditation &amp; Mindfulness Guide</summary>
+      <div class="section-body">
+
+        <div class="field">
+          <label>Experiencia previa con meditación</label>
+          <textarea name="meditation.experiencia" placeholder="ej. 2 años con Headspace, sé respiración 4-7-8, hice un retiro vipassana de 10 días."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Tiempo realista al día que vas a dedicar</label>
+          <input type="text" name="meditation.tiempo" placeholder="ej. 10 min mañana + 5 min noche">
+        </div>
+
+        <div class="field">
+          <label>Momentos críticos del día</label>
+          <span class="hint">Cuándo más te cuesta o más ansiedad/insomnio aparece</span>
+          <textarea name="meditation.momentos_criticos" placeholder="ej. Insomnio de inicio. Ansiedad antes de reuniones. Bajón a las 17h."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Lenguaje preferido</label>
+          <div class="radios" data-name="meditation.lenguaje">
+            <label class="pill"><input type="radio" name="meditation.lenguaje" value="secular">Secular / científico</label>
+            <label class="pill"><input type="radio" name="meditation.lenguaje" value="contemplativo">Contemplativo</label>
+            <label class="pill"><input type="radio" name="meditation.lenguaje" value="espiritual">Espiritual</label>
+            <label class="pill"><input type="radio" name="meditation.lenguaje" value="mixto">Mixto</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Palabras o conceptos que te echan para atrás</label>
+          <textarea name="meditation.evitar" placeholder="ej. 'Vibración', 'energía', 'manifestación', frases tipo coach."></textarea>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ===================== STRATEGY ===================== -->
+    <details data-section="strategy">
+      <summary>Strategic Decision Advisor</summary>
+      <div class="section-body">
+
+        <div class="field">
+          <label>¿Hay alguna decisión grande viva ahora mismo?</label>
+          <textarea name="strategy.decision_viva" placeholder="ej. Cambio de trabajo, mudanza de ciudad, formación cara, ruptura, hijos…"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Marcos mentales que te gustan o ya usas</label>
+          <textarea name="strategy.marcos_favoritos" placeholder="ej. Regret minimization, segundos órdenes, OKR, expected value, pre-mortem…"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Marcos o lenguaje que rechazas</label>
+          <textarea name="strategy.marcos_rechazo" placeholder="ej. Coaching de gurús, planes a 10 años rígidos, motivación tipo LinkedIn."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Tolerancia al riesgo declarada (1-10)</label>
+          <input type="number" min="1" max="10" name="strategy.tolerancia_riesgo" placeholder="ej. 5">
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ===================== DISCIPLINE ===================== -->
+    <details data-section="discipline">
+      <summary>Motivation &amp; Discipline Coach</summary>
+      <div class="section-body">
+
+        <div class="field">
+          <label>Top 3 hábitos que SÍ sostienes hoy</label>
+          <textarea name="discipline.habitos_si" placeholder="ej. Entreno fuerza 3 veces por semana hace 2 años, sin alcohol entre semana, lectura 20 min antes de dormir."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Top 3 hábitos que has intentado y abandonado, y por qué</label>
+          <textarea name="discipline.habitos_no" placeholder="ej. Diario matinal — abandoné por incoherencia con horario. Cardio en ayunas — me destrozaba el día. Meditación 30 min — demasiado para empezar."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Tu tipo dominante de procrastinación</label>
+          <div class="radios" data-name="discipline.tipo_proc">
+            <label class="pill"><input type="radio" name="discipline.tipo_proc" value="ansiedad">Ansiedad</label>
+            <label class="pill"><input type="radio" name="discipline.tipo_proc" value="perfeccionismo">Perfeccionismo</label>
+            <label class="pill"><input type="radio" name="discipline.tipo_proc" value="ambiguedad">Ambigüedad</label>
+            <label class="pill"><input type="radio" name="discipline.tipo_proc" value="evasion">Evasión emocional</label>
+            <label class="pill"><input type="radio" name="discipline.tipo_proc" value="mezcla">Mezcla</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Te funciona mejor accountability</label>
+          <div class="radios" data-name="discipline.accountability">
+            <label class="pill"><input type="radio" name="discipline.accountability" value="publico">Público (Twitter, grupo)</label>
+            <label class="pill"><input type="radio" name="discipline.accountability" value="privado">Privado (compañero, coach)</label>
+            <label class="pill"><input type="radio" name="discipline.accountability" value="solo">A solas (registro propio)</label>
+          </div>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ===================== PRODUCTIVITY ===================== -->
+    <details data-section="productivity">
+      <summary>Productivity Systems Builder</summary>
+      <div class="section-body">
+
+        <div class="field">
+          <label>Herramientas que ya usas</label>
+          <div class="checkboxes" data-name="productivity.herramientas">
+            <label class="pill"><input type="checkbox" name="productivity.herramientas" value="notion">Notion</label>
+            <label class="pill"><input type="checkbox" name="productivity.herramientas" value="apple_notes">Apple Notes</label>
+            <label class="pill"><input type="checkbox" name="productivity.herramientas" value="obsidian">Obsidian</label>
+            <label class="pill"><input type="checkbox" name="productivity.herramientas" value="reminders">Reminders</label>
+            <label class="pill"><input type="checkbox" name="productivity.herramientas" value="todoist">Todoist</label>
+            <label class="pill"><input type="checkbox" name="productivity.herramientas" value="things">Things</label>
+            <label class="pill"><input type="checkbox" name="productivity.herramientas" value="ms_to_do">Microsoft To Do</label>
+            <label class="pill"><input type="checkbox" name="productivity.herramientas" value="apple_calendar">Apple Calendar</label>
+            <label class="pill"><input type="checkbox" name="productivity.herramientas" value="google_calendar">Google Calendar</label>
+            <label class="pill"><input type="checkbox" name="productivity.herramientas" value="excel_sheets">Excel / Sheets</label>
+            <label class="pill"><input type="checkbox" name="productivity.herramientas" value="papel">Papel / libreta</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Tu sistema central HOY</label>
+          <span class="hint">¿Funciona o lo arrastras por inercia?</span>
+          <textarea name="productivity.sistema_central" placeholder="ej. Apple Calendar para tiempo + Reminders para tareas. Todo bien menos planificación semanal: la salto."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Horario laboral típico y momentos protegidos</label>
+          <textarea name="productivity.horario" placeholder="ej. 9-18h, no quiero reuniones antes de 11h, viernes tarde libre."></textarea>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ===================== SLEEP ===================== -->
+    <details data-section="sleep">
+      <summary>Recovery, Sleep &amp; Energy Coach</summary>
+      <div class="section-body">
+
+        <div class="row-2">
+          <div class="field">
+            <label>Horas medias de sueño entre semana</label>
+            <input type="number" step="0.1" name="sleep.horas_semana" placeholder="ej. 6.5">
+          </div>
+          <div class="field">
+            <label>Horas medias fin de semana</label>
+            <input type="number" step="0.1" name="sleep.horas_finde" placeholder="ej. 8">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Tracker de sueño que usas</label>
+          <div class="radios" data-name="sleep.tracker">
+            <label class="pill"><input type="radio" name="sleep.tracker" value="autosleep">AutoSleep (iPhone)</label>
+            <label class="pill"><input type="radio" name="sleep.tracker" value="apple_watch">Apple Watch nativo</label>
+            <label class="pill"><input type="radio" name="sleep.tracker" value="garmin">Garmin</label>
+            <label class="pill"><input type="radio" name="sleep.tracker" value="oura">Oura</label>
+            <label class="pill"><input type="radio" name="sleep.tracker" value="whoop">Whoop</label>
+            <label class="pill"><input type="radio" name="sleep.tracker" value="ninguno">Ninguno</label>
+          </div>
+        </div>
+
+        <div class="row-2">
+          <div class="field">
+            <label>Cafeína cantidad/día</label>
+            <input type="text" name="sleep.cafeina" placeholder="ej. 2 cafés (~200mg)">
+          </div>
+          <div class="field">
+            <label>Hora del último café</label>
+            <input type="text" name="sleep.cafeina_hora" placeholder="ej. 13:00">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Cronotipo</label>
+          <div class="radios" data-name="sleep.cronotipo">
+            <label class="pill"><input type="radio" name="sleep.cronotipo" value="mananero">Mañanero</label>
+            <label class="pill"><input type="radio" name="sleep.cronotipo" value="nocturno">Nocturno</label>
+            <label class="pill"><input type="radio" name="sleep.cronotipo" value="mixto">Mixto</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Problemas actuales</label>
+          <textarea name="sleep.problemas" placeholder="ej. Insomnio de inicio frecuente, despertares 3-4h, fatiga 16-17h."></textarea>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ===================== IDENTITY ===================== -->
+    <details data-section="identity">
+      <summary>Identity &amp; Life Design Coach</summary>
+      <div class="section-body">
+
+        <div class="field">
+          <label>¿Tienes ya una visión a 3-5 años escrita?</label>
+          <textarea name="identity.vision" placeholder="Si la tienes, pégala. Si no, déjalo vacío y la construimos juntos."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Tres valores que nombrarías si te obligo a elegir</label>
+          <textarea name="identity.valores" placeholder="ej. Libertad, honestidad, fortaleza."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Áreas donde sientes incoherencia entre lo que dices y lo que haces</label>
+          <textarea name="identity.incoherencias" placeholder="ej. Digo que valoro la salud pero duermo 5h. Digo que la familia es prioridad pero la veo dos veces al año."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Hobbies actuales fuera del trabajo y entrenamiento</label>
+          <textarea name="identity.hobbies" placeholder="ej. Lectura, fotografía, montaña ocasional."></textarea>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ===================== CURATOR ===================== -->
+    <details data-section="curator">
+      <summary>Knowledge &amp; Memory Curator</summary>
+      <div class="section-body">
+
+        <div class="field">
+          <label>Frecuencia con la que quieres auditoría/limpieza automática</label>
+          <div class="radios" data-name="curator.frecuencia">
+            <label class="pill"><input type="radio" name="curator.frecuencia" value="semanal">Semanal</label>
+            <label class="pill"><input type="radio" name="curator.frecuencia" value="mensual">Mensual</label>
+            <label class="pill"><input type="radio" name="curator.frecuencia" value="trimestral">Trimestral</label>
+            <label class="pill"><input type="radio" name="curator.frecuencia" value="manual">Solo cuando lo pida</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Modo de archivado/borrado</label>
+          <div class="radios" data-name="curator.modo">
+            <label class="pill"><input type="radio" name="curator.modo" value="auto">Archiva solo (irreversible local)</label>
+            <label class="pill"><input type="radio" name="curator.modo" value="confirm">Pide confirmación siempre</label>
+          </div>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ===================== GLOBAL ===================== -->
+    <details data-section="global">
+      <summary>Personal Life Co-Worker — preferencias globales</summary>
+      <div class="section-body">
+
+        <div class="field">
+          <label>Tono que prefieres</label>
+          <div class="radios" data-name="global.tono">
+            <label class="pill"><input type="radio" name="global.tono" value="directo">Directo / exigente</label>
+            <label class="pill"><input type="radio" name="global.tono" value="equilibrado">Equilibrado</label>
+            <label class="pill"><input type="radio" name="global.tono" value="suave">Suave</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Idioma</label>
+          <div class="radios" data-name="global.idioma">
+            <label class="pill"><input type="radio" name="global.idioma" value="es">Siempre español</label>
+            <label class="pill"><input type="radio" name="global.idioma" value="es_en">Español + inglés cuando aporta</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Temas o dominios que NO quieres que se toquen</label>
+          <textarea name="global.no_tocar" placeholder="ej. Política, religión específica, comparación con otras personas."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Cómo quieres que te llame</label>
+          <input type="text" name="global.nombre" placeholder="Nombre o cómo prefieres">
+        </div>
+
+        <div class="row-2">
+          <div class="field">
+            <label>Edad</label>
+            <input type="number" name="global.edad">
+          </div>
+          <div class="field">
+            <label>Ocupación principal</label>
+            <input type="text" name="global.ocupacion" placeholder="ej. Desarrollador backend">
+          </div>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ===================== TELEGRAM + RASPBERRY ===================== -->
+    <details data-section="telegram">
+      <summary>Telegram + Raspberry — datos técnicos</summary>
+      <div class="section-body">
+
+        <div class="field">
+          <label>Modelo de Raspberry y RAM</label>
+          <input type="text" name="telegram.raspberry_modelo" placeholder="ej. Raspberry Pi 4, 4GB">
+        </div>
+
+        <div class="field">
+          <label>Sistema operativo</label>
+          <input type="text" name="telegram.so" placeholder="ej. Raspberry Pi OS Bookworm 64-bit">
+        </div>
+
+        <div class="field">
+          <label>¿Tienes acceso SSH a la Raspberry?</label>
+          <div class="radios" data-name="telegram.ssh">
+            <label class="pill"><input type="radio" name="telegram.ssh" value="si">Sí, sin problema</label>
+            <label class="pill"><input type="radio" name="telegram.ssh" value="no_aun">No, pero puedo activarlo</label>
+            <label class="pill"><input type="radio" name="telegram.ssh" value="ayuda">Necesito ayuda para activarlo</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Conexión</label>
+          <div class="radios" data-name="telegram.conexion">
+            <label class="pill"><input type="radio" name="telegram.conexion" value="ethernet">Ethernet, IP fija</label>
+            <label class="pill"><input type="radio" name="telegram.conexion" value="wifi_fija">WiFi, IP fija</label>
+            <label class="pill"><input type="radio" name="telegram.conexion" value="wifi_dinamica">WiFi, IP dinámica</label>
+            <label class="pill"><input type="radio" name="telegram.conexion" value="no_se">No lo sé</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Tu user de Telegram</label>
+          <span class="hint">El bot solo aceptará mensajes de este user (filtro de seguridad).</span>
+          <input type="text" name="telegram.usuario" placeholder="@tu_usuario">
+        </div>
+
+        <div class="field">
+          <label>API key de Anthropic</label>
+          <div class="radios" data-name="telegram.api_key">
+            <label class="pill"><input type="radio" name="telegram.api_key" value="ya_tengo">Ya tengo</label>
+            <label class="pill"><input type="radio" name="telegram.api_key" value="necesito">No tengo, necesito que me guíes</label>
+          </div>
+          <span class="hint" style="margin-top: 6px;">No la pegues aquí. Solo confirma si ya tienes acceso.</span>
+        </div>
+
+        <div class="field">
+          <label>¿El bot debe responder también a notas de voz?</label>
+          <div class="radios" data-name="telegram.voz">
+            <label class="pill"><input type="radio" name="telegram.voz" value="si">Sí, transcribiendo a texto</label>
+            <label class="pill"><input type="radio" name="telegram.voz" value="no">No, solo texto e imágenes</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>¿Quieres recordatorios proactivos por cron?</label>
+          <span class="hint">ej. 06:30 daily-plan, 22:00 night-routine, domingo 18:00 weekly-review</span>
+          <textarea name="telegram.recordatorios" placeholder="ej. 06:30 daily-plan en días laborables, domingo 18:00 weekly-review."></textarea>
+        </div>
+
+        <div class="field">
+          <label>¿Quieres que cada conversación quede registrada en memory/conversation-log/?</label>
+          <div class="radios" data-name="telegram.log_conv">
+            <label class="pill"><input type="radio" name="telegram.log_conv" value="si">Sí</label>
+            <label class="pill"><input type="radio" name="telegram.log_conv" value="resumen">Solo resumen diario</label>
+            <label class="pill"><input type="radio" name="telegram.log_conv" value="no">No</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>¿Sincronización con GitHub privado tras cada cambio?</label>
+          <div class="radios" data-name="telegram.github_sync">
+            <label class="pill"><input type="radio" name="telegram.github_sync" value="si_auto">Sí, push automático</label>
+            <label class="pill"><input type="radio" name="telegram.github_sync" value="diario">Push diario al final del día</label>
+            <label class="pill"><input type="radio" name="telegram.github_sync" value="no">No, solo local</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>¿Quieres todo de golpe o por fases?</label>
+          <div class="radios" data-name="telegram.fases">
+            <label class="pill"><input type="radio" name="telegram.fases" value="fases">Fase 1 → 2 → 3</label>
+            <label class="pill"><input type="radio" name="telegram.fases" value="todo">Todo de golpe</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Notas adicionales sobre la Raspberry o el setup</label>
+          <textarea name="telegram.notas" placeholder="ej. Tiene un disco USB conectado, está en mi escritorio, ya tiene Docker instalado..."></textarea>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ===================== ACTIONS ===================== -->
+    <div class="actions">
+      <button type="button" id="btnGenerar">Generar respuesta</button>
+      <button type="button" class="secondary" id="btnCopy">Copiar al portapapeles</button>
+      <button type="button" class="secondary" id="btnSave">Guardar borrador (.md)</button>
+      <button type="button" class="danger" id="btnReset">Borrar todo</button>
+    </div>
+
+    <div class="note" id="note">Copiado. Pega el bloque en el chat con Claude Code.</div>
+
+    <pre id="output"></pre>
+
+    <p class="small">Los datos se guardan únicamente en este navegador (LocalStorage). Nada se envía a ningún servidor desde este formulario.</p>
+
+  </form>
+</div>
+
+<script>
+const STORAGE_KEY = "personal-life-coworker-form-v1";
+const form = document.getElementById("setupForm");
+const output = document.getElementById("output");
+const note = document.getElementById("note");
+const progressBar = document.getElementById("progressBar");
+const progressLabel = document.getElementById("progressLabel");
+
+// Highlight pills on change
+function syncPills() {
+  document.querySelectorAll(".pill input").forEach(i => {
+    i.closest(".pill").classList.toggle("on", i.checked);
+  });
+}
+
+// Save to localStorage
+function saveState() {
+  const data = collect();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  updateProgress(data);
+}
+
+// Restore from localStorage
+function restoreState() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return;
+  try {
+    const data = JSON.parse(raw);
+    Object.entries(data).forEach(([key, value]) => {
+      const inputs = form.querySelectorAll(`[name="${CSS.escape(key)}"]`);
+      if (!inputs.length) return;
+      const type = inputs[0].type;
+      if (type === "checkbox") {
+        const arr = Array.isArray(value) ? value : [value];
+        inputs.forEach(i => { i.checked = arr.includes(i.value); });
+      } else if (type === "radio") {
+        inputs.forEach(i => { i.checked = (i.value === value); });
+      } else {
+        inputs[0].value = value || "";
+      }
+    });
+    syncPills();
+    updateProgress(data);
+  } catch(e) { console.warn(e); }
+}
+
+// Collect form values
+function collect() {
+  const data = {};
+  const seen = new Set();
+  form.querySelectorAll("input, textarea, select").forEach(el => {
+    const name = el.name;
+    if (!name || seen.has(name + ":" + el.type)) {
+      // for checkboxes we need to aggregate, handle once
+    }
+    if (el.type === "checkbox") {
+      if (!data[name]) data[name] = [];
+      if (el.checked) data[name].push(el.value);
+    } else if (el.type === "radio") {
+      if (el.checked) data[name] = el.value;
+    } else {
+      data[name] = el.value.trim();
+    }
+  });
+  return data;
+}
+
+// Update progress bar
+function updateProgress(data) {
+  const total = Object.keys(getDescriptor()).length;
+  let filled = 0;
+  Object.keys(getDescriptor()).forEach(key => {
+    const v = data[key];
+    if (Array.isArray(v) && v.length > 0) filled++;
+    else if (typeof v === "string" && v.trim() !== "") filled++;
+  });
+  const pct = Math.round((filled / total) * 100);
+  progressBar.style.width = pct + "%";
+  progressLabel.textContent = pct + "% completado · " + filled + " / " + total + " campos";
+}
+
+// Field descriptor for output formatting
+function getDescriptor() {
+  return {
+    "strength.anos": { section: "strength-conditioning-coach", label: "Años entrenando" },
+    "strength.sentadilla": { section: "strength-conditioning-coach", label: "Sentadilla" },
+    "strength.banca": { section: "strength-conditioning-coach", label: "Press banca" },
+    "strength.pesomuerto": { section: "strength-conditioning-coach", label: "Peso muerto" },
+    "strength.militar": { section: "strength-conditioning-coach", label: "Press militar" },
+    "strength.dominadas": { section: "strength-conditioning-coach", label: "Dominadas máx" },
+    "strength.otras": { section: "strength-conditioning-coach", label: "Otras marcas" },
+    "strength.metodo": { section: "strength-conditioning-coach", label: "Método preferido" },
+    "strength.material": { section: "strength-conditioning-coach", label: "Material/entorno" },
+    "strength.freq_fuerza": { section: "strength-conditioning-coach", label: "Frecuencia fuerza" },
+    "strength.freq_cardio": { section: "strength-conditioning-coach", label: "Frecuencia cardio" },
+    "strength.freq_boxeo": { section: "strength-conditioning-coach", label: "Frecuencia boxeo" },
+    "strength.tiempo_sesion": { section: "strength-conditioning-coach", label: "Tiempo por sesión" },
+    "strength.boxeo": { section: "strength-conditioning-coach", label: "Boxeo nivel/contexto" },
+    "strength.lesiones": { section: "strength-conditioning-coach", label: "Lesiones" },
+    "strength.tracker": { section: "strength-conditioning-coach", label: "Tracker actual" },
+
+    "nutrition.peso": { section: "muscle-cooking-nutrition-coach", label: "Peso (kg)" },
+    "nutrition.altura": { section: "muscle-cooking-nutrition-coach", label: "Altura (cm)" },
+    "nutrition.objetivo": { section: "muscle-cooking-nutrition-coach", label: "Objetivo" },
+    "nutrition.kcal": { section: "muscle-cooking-nutrition-coach", label: "Kcal/día" },
+    "nutrition.proteina": { section: "muscle-cooking-nutrition-coach", label: "Proteína g/día" },
+    "nutrition.restricciones": { section: "muscle-cooking-nutrition-coach", label: "Restricciones/aversiones" },
+    "nutrition.fuera_casa": { section: "muscle-cooking-nutrition-coach", label: "Días fuera de casa" },
+    "nutrition.electrodomesticos": { section: "muscle-cooking-nutrition-coach", label: "Electrodomésticos" },
+    "nutrition.suplementos": { section: "muscle-cooking-nutrition-coach", label: "Suplementación" },
+    "nutrition.presupuesto": { section: "muscle-cooking-nutrition-coach", label: "Presupuesto comida €/sem" },
+
+    "meditation.experiencia": { section: "meditation-mindfulness-guide", label: "Experiencia previa" },
+    "meditation.tiempo": { section: "meditation-mindfulness-guide", label: "Tiempo al día" },
+    "meditation.momentos_criticos": { section: "meditation-mindfulness-guide", label: "Momentos críticos" },
+    "meditation.lenguaje": { section: "meditation-mindfulness-guide", label: "Lenguaje preferido" },
+    "meditation.evitar": { section: "meditation-mindfulness-guide", label: "Palabras a evitar" },
+
+    "strategy.decision_viva": { section: "strategic-decision-advisor", label: "Decisión viva ahora" },
+    "strategy.marcos_favoritos": { section: "strategic-decision-advisor", label: "Marcos favoritos" },
+    "strategy.marcos_rechazo": { section: "strategic-decision-advisor", label: "Marcos a rechazar" },
+    "strategy.tolerancia_riesgo": { section: "strategic-decision-advisor", label: "Tolerancia al riesgo (1-10)" },
+
+    "discipline.habitos_si": { section: "motivation-discipline-coach", label: "Hábitos sostenidos" },
+    "discipline.habitos_no": { section: "motivation-discipline-coach", label: "Hábitos abandonados" },
+    "discipline.tipo_proc": { section: "motivation-discipline-coach", label: "Tipo de procrastinación" },
+    "discipline.accountability": { section: "motivation-discipline-coach", label: "Accountability preferido" },
+
+    "productivity.herramientas": { section: "productivity-systems-builder", label: "Herramientas usadas" },
+    "productivity.sistema_central": { section: "productivity-systems-builder", label: "Sistema central actual" },
+    "productivity.horario": { section: "productivity-systems-builder", label: "Horario y momentos protegidos" },
+
+    "sleep.horas_semana": { section: "recovery-sleep-energy-coach", label: "Horas medias entre semana" },
+    "sleep.horas_finde": { section: "recovery-sleep-energy-coach", label: "Horas medias fin de semana" },
+    "sleep.tracker": { section: "recovery-sleep-energy-coach", label: "Tracker de sueño" },
+    "sleep.cafeina": { section: "recovery-sleep-energy-coach", label: "Cafeína cantidad/día" },
+    "sleep.cafeina_hora": { section: "recovery-sleep-energy-coach", label: "Hora último café" },
+    "sleep.cronotipo": { section: "recovery-sleep-energy-coach", label: "Cronotipo" },
+    "sleep.problemas": { section: "recovery-sleep-energy-coach", label: "Problemas actuales" },
+
+    "identity.vision": { section: "identity-life-design-coach", label: "Visión a 3-5 años" },
+    "identity.valores": { section: "identity-life-design-coach", label: "Tres valores" },
+    "identity.incoherencias": { section: "identity-life-design-coach", label: "Incoherencias" },
+    "identity.hobbies": { section: "identity-life-design-coach", label: "Hobbies actuales" },
+
+    "curator.frecuencia": { section: "knowledge-memory-curator", label: "Frecuencia auditoría" },
+    "curator.modo": { section: "knowledge-memory-curator", label: "Modo archivado" },
+
+    "global.tono": { section: "preferencias-globales", label: "Tono preferido" },
+    "global.idioma": { section: "preferencias-globales", label: "Idioma" },
+    "global.no_tocar": { section: "preferencias-globales", label: "Temas a no tocar" },
+    "global.nombre": { section: "preferencias-globales", label: "Cómo llamarte" },
+    "global.edad": { section: "preferencias-globales", label: "Edad" },
+    "global.ocupacion": { section: "preferencias-globales", label: "Ocupación" },
+
+    "telegram.raspberry_modelo": { section: "telegram-raspberry", label: "Modelo Raspberry" },
+    "telegram.so": { section: "telegram-raspberry", label: "Sistema operativo" },
+    "telegram.ssh": { section: "telegram-raspberry", label: "Acceso SSH" },
+    "telegram.conexion": { section: "telegram-raspberry", label: "Conexión" },
+    "telegram.usuario": { section: "telegram-raspberry", label: "Usuario Telegram" },
+    "telegram.api_key": { section: "telegram-raspberry", label: "API key Anthropic" },
+    "telegram.voz": { section: "telegram-raspberry", label: "Soporte notas de voz" },
+    "telegram.recordatorios": { section: "telegram-raspberry", label: "Recordatorios cron" },
+    "telegram.log_conv": { section: "telegram-raspberry", label: "Log conversaciones" },
+    "telegram.github_sync": { section: "telegram-raspberry", label: "Sync GitHub" },
+    "telegram.fases": { section: "telegram-raspberry", label: "Implementación" },
+    "telegram.notas": { section: "telegram-raspberry", label: "Notas adicionales" }
+  };
+}
+
+// Build markdown output
+function buildMarkdown() {
+  const data = collect();
+  const desc = getDescriptor();
+  const sections = {};
+
+  Object.entries(desc).forEach(([key, info]) => {
+    let val = data[key];
+    if (Array.isArray(val)) val = val.length ? val.join(", ") : "";
+    if (typeof val === "string") val = val.trim();
+    if (!val) return;
+    if (!sections[info.section]) sections[info.section] = [];
+    sections[info.section].push(`- **${info.label}:** ${val}`);
+  });
+
+  const order = [
+    "strength-conditioning-coach",
+    "muscle-cooking-nutrition-coach",
+    "meditation-mindfulness-guide",
+    "strategic-decision-advisor",
+    "motivation-discipline-coach",
+    "productivity-systems-builder",
+    "recovery-sleep-energy-coach",
+    "identity-life-design-coach",
+    "knowledge-memory-curator",
+    "preferencias-globales",
+    "telegram-raspberry"
+  ];
+
+  let md = "# Cuestionario de configuración — Personal Life Co-Worker\n\n";
+  md += `_Generado: ${new Date().toISOString()}_\n\n`;
+  let any = false;
+  order.forEach(s => {
+    if (!sections[s]) return;
+    any = true;
+    md += `## ${s}\n\n`;
+    md += sections[s].join("\n") + "\n\n";
+  });
+  if (!any) md += "_(Sin datos rellenados aún.)_\n";
+  return md;
+}
+
+// Events
+form.addEventListener("input", () => { syncPills(); saveState(); });
+form.addEventListener("change", () => { syncPills(); saveState(); });
+
+document.getElementById("btnGenerar").addEventListener("click", () => {
+  const md = buildMarkdown();
+  output.textContent = md;
+  output.style.display = "block";
+  output.scrollIntoView({ behavior: "smooth", block: "nearest" });
+});
+
+document.getElementById("btnCopy").addEventListener("click", async () => {
+  const md = buildMarkdown();
+  output.textContent = md;
+  output.style.display = "block";
+  try {
+    await navigator.clipboard.writeText(md);
+    note.style.display = "block";
+    setTimeout(() => note.style.display = "none", 3000);
+  } catch(e) {
+    alert("No se pudo copiar automáticamente. Selecciona el bloque y copia manualmente.");
+  }
+});
+
+document.getElementById("btnSave").addEventListener("click", () => {
+  const md = buildMarkdown();
+  const blob = new Blob([md], { type: "text/markdown" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "cuestionario-personal-coach-" + new Date().toISOString().slice(0,10) + ".md";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById("btnReset").addEventListener("click", () => {
+  if (!confirm("¿Borrar todas las respuestas? Esta acción no se puede deshacer.")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  form.reset();
+  syncPills();
+  output.style.display = "none";
+  updateProgress({});
+});
+
+// Init
+restoreState();
+syncPills();
+</script>
+</body>
+</html>
