@@ -41,3 +41,8 @@ def test_memory_path_is_repo_subdir(tmp_repo):
     reader = MemoryReader(tmp_repo)
     assert reader.memory_path.endswith("memory")
     assert os.path.dirname(reader.memory_path) == tmp_repo
+
+def test_all_files_missing_returns_empty(tmp_repo):
+    reader = MemoryReader(tmp_repo)
+    content = reader.read_files(["nonexistent1.md", "nonexistent2.md"])
+    assert content == ""

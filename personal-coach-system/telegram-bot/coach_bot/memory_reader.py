@@ -27,6 +27,6 @@ class MemoryReader:
                 try:
                     content = self._read_file(path)
                     sections.append(f"## {filename}\n{content}")
-                except Exception:
-                    pass
+                except Exception as e:
+                    print(f"[MemoryReader] Warning: could not read {filename}: {e}")
         return "\n\n---\n\n".join(sections)
