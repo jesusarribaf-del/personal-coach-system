@@ -59,11 +59,64 @@ class BotHandlers:
     def _is_authorized(self, update: Update) -> bool:
         return update.effective_chat.id == self.authorized_chat_id
 
+    def _extract_memory_proposal(self, text: str) -> dict | None:
+        if "ACTUALIZAR MEMORIA" not in text and "ACTUALIZAR →" not in text:
+            return None
+        lines = text.split("\n")
+        for i, line in enumerate(lines):
+            if "ACTUALIZAR" in line and "memory/" in line:
+                file_part = [p for p in line.split() if "memory/" in p]
+                if not file_part:
+                    continue
+                filename = file_part[0].replace("→", "").strip()
+                content = "\n".join(lines[i + 1:]).strip()
+                return {"file": filename, "content": content}
+        return None
+
+    async def _apply_memory_update(self, message, proposal: dict):
+        import os
+        import subprocess
+        filepath = os.path.join(self.repo_path, proposal["file"])
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        try:
+            with open(filepath, "a", encoding="utf-8") as f:
+                f.write(f"\n\n{proposal['content']}")
+            subprocess.run(
+                ["git", "-C", self.repo_path, "add", proposal["file"]],
+                capture_output=True
+            )
+            subprocess.run(
+                ["git", "-C", self.repo_path, "commit", "-m",
+                 f"memory: update {proposal['file']} via Telegram bot"],
+                capture_output=True
+            )
+            subprocess.run(
+                ["git", "-C", self.repo_path, "push", "origin", "main"],
+                capture_output=True
+            )
+            await message.reply_text(
+                f"✅ Memoria actualizada: `{proposal['file']}`",
+                parse_mode=ParseMode.MARKDOWN
+            )
+        except Exception as e:
+            await message.reply_text(f"⚠️ Error al actualizar memoria: {e}")
+
     async def handle_message(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         if not self._is_authorized(update):
             return
 
         message = update.message
+
+        # Gestionar confirmación de propuesta de memoria pendiente
+        text_lower = (message.text or "").lower().strip()
+        if message.chat_id in self._pending_memory and text_lower in ("sí", "si", "yes", "s", "y"):
+            await self._apply_memory_update(message, self._pending_memory.pop(message.chat_id))
+            return
+        if message.chat_id in self._pending_memory and text_lower in ("no", "n"):
+            self._pending_memory.pop(message.chat_id)
+            await message.reply_text("❌ Propuesta descartada.")
+            return
+
         await context.bot.send_chat_action(chat_id=message.chat_id, action="typing")
 
         msg_context = {"text": message.text or message.caption or ""}
@@ -114,6 +167,18 @@ class BotHandlers:
         )
 
         await message.reply_text(response, parse_mode=ParseMode.MARKDOWN)
+
+        # Detectar si algún agente propone actualizar memoria
+        memory_proposal = self._extract_memory_proposal(primary_result if isinstance(primary_result, str) else "")
+        if memory_proposal:
+            self._pending_memory[message.chat_id] = memory_proposal
+            proposal_text = (
+                f"\n\n📝 *Propuesta de memoria*\n"
+                f"`{memory_proposal['file']}`\n"
+                f"```\n{memory_proposal['content'][:400]}\n```\n"
+                f"¿Confirmas? Responde *sí* o *no*"
+            )
+            await message.reply_text(proposal_text, parse_mode=ParseMode.MARKDOWN)
 
     async def cmd_start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         if not self._is_authorized(update):

@@ -119,3 +119,51 @@ async def test_handle_message_unauthorized_returns_early(tmp_repo):
     await handlers.handle_message(update, context)
 
     context.bot.send_chat_action.assert_not_called()
+
+
+# ─── Test 9 ───────────────────────────────────────────────────────────────────
+
+def test_extract_memory_proposal_detects_actualizar_pattern(tmp_repo):
+    handlers = BotHandlers(tmp_repo, "fake", 12345)
+    text = "Análisis completo.\n\nACTUALIZAR → memory/body-training-profile.md\nPeso: 79kg (2026-05-07)"
+    proposal = handlers._extract_memory_proposal(text)
+    assert proposal is not None
+    assert "body-training-profile.md" in proposal["file"]
+    assert "79kg" in proposal["content"]
+
+
+# ─── Test 10 ──────────────────────────────────────────────────────────────────
+
+def test_extract_memory_proposal_returns_none_when_no_pattern(tmp_repo):
+    handlers = BotHandlers(tmp_repo, "fake", 12345)
+    text = "Análisis normal sin propuesta de memoria."
+    assert handlers._extract_memory_proposal(text) is None
+
+
+# ─── Test 11 ──────────────────────────────────────────────────────────────────
+
+def test_extract_memory_proposal_detects_actualizar_memoria_pattern(tmp_repo):
+    handlers = BotHandlers(tmp_repo, "fake", 12345)
+    text = "ACTUALIZAR MEMORIA → memory/nutrition-progress.md\nPeso: 80kg"
+    proposal = handlers._extract_memory_proposal(text)
+    assert proposal is not None
+    assert "nutrition-progress.md" in proposal["file"]
+
+
+# ─── Test 12 ──────────────────────────────────────────────────────────────────
+
+async def test_handle_message_rejects_pending_memory_with_no(tmp_repo):
+    handlers = BotHandlers(tmp_repo, "fake", 12345)
+    handlers._pending_memory[12345] = {"file": "memory/test.md", "content": "test content"}
+
+    update = make_update(12345)
+    update.message.text = "no"
+    context = make_context()
+
+    await handlers.handle_message(update, context)
+
+    assert 12345 not in handlers._pending_memory
+    update.message.reply_text.assert_called_once()
+    call_args = update.message.reply_text.call_args
+    text = call_args[0][0] if call_args[0] else ""
+    assert "descartada" in text.lower()
