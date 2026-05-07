@@ -31,7 +31,7 @@ class BaseAgent(ABC):
         messages = self._build_messages(context, memory_context, full)
         model = self.MODEL_FULL if full else self.MODEL_BRIEF
         max_tokens = 600 if full else 200
-        loop = asyncio.get_event_loop()
+        loop = asyncio.get_running_loop()
         response = await loop.run_in_executor(
             None,
             lambda: self.client.messages.create(
@@ -42,7 +42,7 @@ class BaseAgent(ABC):
             ),
         )
         text = response.content[0].text.strip()
-        if not full and text == NO_CONTRIBUTION:
+        if text == NO_CONTRIBUTION:
             return None
         return text
 

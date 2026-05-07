@@ -1,5 +1,6 @@
+import asyncio
 import pytest
-from unittest.mock import MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 from coach_bot.agents.base import BaseAgent, NO_CONTRIBUTION
 
 class ConcreteAgent(BaseAgent):
@@ -53,3 +54,30 @@ def test_build_messages_with_image(tmp_path):
     content = msgs[0]["content"]
     assert content[0]["type"] == "image"
     assert content[0]["source"]["data"] == "abc123"
+
+
+@pytest.mark.asyncio
+async def test_analyze_returns_none_when_not_relevant(tmp_path):
+    agent = ConcreteAgent(str(tmp_path), "fake_key")
+    result = await agent.analyze({"input_type": "other"}, full=False)
+    assert result is None
+
+
+@pytest.mark.asyncio
+async def test_analyze_returns_none_for_no_contribution(tmp_path):
+    agent = ConcreteAgent(str(tmp_path), "fake_key")
+    mock_response = MagicMock()
+    mock_response.content = [MagicMock(text="NO_APORTACION")]
+    with patch.object(agent.client.messages, "create", return_value=mock_response):
+        result = await agent.analyze({"input_type": "test", "text": "hola"}, full=False)
+    assert result is None
+
+
+@pytest.mark.asyncio
+async def test_analyze_returns_text_when_relevant(tmp_path):
+    agent = ConcreteAgent(str(tmp_path), "fake_key")
+    mock_response = MagicMock()
+    mock_response.content = [MagicMock(text="Respuesta del agente.")]
+    with patch.object(agent.client.messages, "create", return_value=mock_response):
+        result = await agent.analyze({"input_type": "test", "text": "hola"}, full=True)
+    assert result == "Respuesta del agente."
