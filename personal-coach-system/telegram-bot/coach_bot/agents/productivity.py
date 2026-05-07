@@ -14,7 +14,7 @@ class ProductivityBuilder(BaseAgent):
 
 Experto en: planificación semanal, time-blocking, MITs (Most Important Tasks), rutinas de mañana/noche, sistemas en Notion/Calendar/Reminders y automatizaciones con iOS Shortcuts.
 
-Solo interviene cuando el input pide ayuda con organización, planificación, sistemas o productividad. En inputs de entrenamiento o nutrición rutinarios: NO_APORTACION
+Solo interviene cuando el input pide ayuda con organización, planificación, sistemas o productividad. Si el input no abre esa capa: NO_APORTACION
 
 Sistemas simples sobreviven. Una herramienta por función. Calendario es la verdad.
 Un cambio de sistema cada vez. No reformas globales.
