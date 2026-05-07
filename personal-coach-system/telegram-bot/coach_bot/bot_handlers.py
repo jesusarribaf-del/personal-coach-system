@@ -157,7 +157,7 @@ class BotHandlers:
                 emoji, name = AGENT_LABELS[key]
                 secondary_labeled.append((f"{emoji} {name}", result))
 
-        if isinstance(primary_result, Exception):
+        if isinstance(primary_result, BaseException):
             primary_result = "Error al obtener análisis. Inténtalo de nuevo."
 
         response = synthesize(
@@ -218,7 +218,7 @@ class BotHandlers:
             return
         import subprocess
         result = subprocess.run(
-            ["git", "-C", "/config/personal-coach-system", "pull", "origin", "main"],
+            ["git", "-C", self.repo_path, "pull", "origin", "main"],
             capture_output=True, text=True
         )
         msg = "✅ Memoria sincronizada." if result.returncode == 0 else f"⚠️ Error: {result.stderr[:200]}"
