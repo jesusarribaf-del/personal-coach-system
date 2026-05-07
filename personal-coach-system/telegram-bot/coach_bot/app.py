@@ -1,15 +1,15 @@
 import asyncio
 import logging
 import threading
+import appdaemon.plugins.hass.hassapi as hass
 
 logger = logging.getLogger(__name__)
 
 
-class CoachBotApp:
-    """AppDaemon entry point. Wraps the Telegram bot in a dedicated thread with its own event loop."""
+class CoachBotApp(hass.Hass):
+    """AppDaemon entry point. Runs the Telegram bot in a daemon thread with its own event loop."""
 
     def initialize(self):
-        import appdaemon.plugins.hass.hassapi as hass  # noqa: F401 — imported at runtime on RPi
         self.bot_token = self.args["bot_token"]
         self.api_key = self.args["anthropic_api_key"]
         self.repo_path = self.args["repo_path"]
