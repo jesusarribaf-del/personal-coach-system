@@ -2,61 +2,84 @@
 
 > Estado actual del usuario. Actualizar cuando cambien datos básicos.
 
-## Última actualización: AAAA-MM-DD
+## Última actualización: 2026-05-08
 
 ## Identidad
 
-- Nombre / cómo prefiere que le llamen:
-- Edad:
-- Ubicación (ciudad, país):
-- Idioma principal:
-- Cronotipo (mañanero / nocturno / mixto):
+- Nombre / cómo prefiere que le llamen: Jesús Arriba
+- Edad: **PENDIENTE**
+- Ubicación (ciudad, país): España
+- Idioma principal: Español
+- Cronotipo (mañanero / nocturno / mixto): **PENDIENTE**
 
 ## Contexto vital
 
-- Ocupación principal:
-- Horario laboral típico:
-- Estado civil / convivencia:
-- Hijos a cargo (sí/no, edades):
-- Mascotas:
+- Ocupación principal: Rovi (incorporación reciente, mayo 2026 — anterior Sodexo)
+- Horario laboral típico: **PENDIENTE**
+- Estado civil / convivencia: **PENDIENTE**
+- Hijos a cargo (sí/no, edades): **PENDIENTE**
+- Mascotas: **PENDIENTE**
 
 ## Salud base
 
-- Peso actual (kg):
-- Altura (cm):
-- Condiciones médicas conocidas:
-- Medicación habitual:
-- Alergias:
-- Operaciones / lesiones relevantes:
-- Última analítica completa (fecha):
+- Peso actual (kg): ~81.7 kg (media últimos 11 días a 20 abr 2026); media anual 79.77 kg
+- Altura (cm): **PENDIENTE**
+- Condiciones médicas conocidas: ninguna conocida
+- Medicación habitual: ninguna
+- Alergias: ninguna conocida
+- Operaciones / lesiones relevantes: ninguna conocida
+- Última analítica completa (fecha): **PENDIENTE**
+
+## Composición corporal (abr 2026)
+
+- Peso medio últimos 30 días: 80.75 kg
+- Grasa corporal estimada: 21.9% (Apple Watch, media may 2025 - may 2026), tendencia ascendente
+- BMR: 1,996 kcal/día (20 mar - 19 abr 2026)
+- VFC (Apple Watch): 44-46 ms promedio; pico histórico 99 ms (reporte entrenamiento)
+- VO2max estimado: por debajo de la media (Apple Watch estima 34-43 ml/kg/min)
+- Recuperación cardíaca: 26-30 LPM promedio
 
 ## Estilo de vida
 
-- Tabaco / alcohol / cannabis / cafeína (frecuencia):
-- Horas de sueño habituales:
-- Nivel de actividad fuera del entreno (sedentario / activo):
+- Tabaco: exfumador — dejó ~febrero 2026
+- Alcohol: consumo social ~1 vez/semana
+- Cannabis: uso nocturno antes de dormir (impacta HRV)
+- Cafeína: **PENDIENTE**
+- Horas de sueño habituales: 6h 40min de media (últimas 12 semanas, Apple Watch)
+- Nivel de actividad fuera del entreno: activo — 14,087 pasos/día (media 6 semanas), 16h de pie/día
+- Distancia media diaria (andar+correr): 10.9 km/día (últimas 6 semanas); 7.6 km/día en 2026
+
+## Historial deportivo
+
+- Karate: 4-15 años (cinturón marrón)
+- Kickboxing/muay thai: 20-25 años
+- Plan futuro: unirse al boxeo
 
 ## Relaciones y apoyo
 
-- Red cercana (sí/no, calidad):
-- Acceso a profesionales (médico, fisio, psicólogo):
+- Red cercana (sí/no, calidad): **PENDIENTE**
+- Acceso a profesionales (médico, fisio, psicólogo): **PENDIENTE**
 
 ## Lo que NO funciona en sistemas anteriores
 
-- Qué ha probado y abandonado:
-- Por qué (excusa, sistema malo, vida cambió, falta de claridad):
+- **PENDIENTE**
 
 ## Lo que sí funciona
 
-- Hábitos que mantiene:
-- Patrones positivos:
+- Batch cooking domingos y miércoles
+- Uso de apps de seguimiento (Jefit, AutoSleep, Strava, Apple Fitness)
+- Proteína en polvo + creatina (adherencia alta)
+- 4 entrenamientos/semana sostenidos desde agosto 2025
 
 ## Preferencias de comunicación
 
-- Tono preferido (directo, suave, mixto):
-- Frecuencia de contacto deseada con el sistema:
-- Formato preferido (textos cortos / análisis profundos):
+- Tono preferido: directo, exigente, práctico — sin motivación vacía
+- Formato preferido: análisis concreto con plan de acción ejecutable
 
 ---
 
 ## Notas libres
+
+- Transición laboral reciente (Sodexo → Rovi) con 16 días libres entre empleos
+- Tendencia positiva fuerte en actividad física 2026 vs 2025: pasos +70%, energía actividad +63%, minutos ejercicio +162%
+- Tendencia negativa en composición: grasa subiendo de ~20.5% a ~23.5% (oct 25 - abr 26) a la vez que sube el peso
