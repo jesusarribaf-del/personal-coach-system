@@ -16,6 +16,7 @@ from coach_bot.agents.productivity import ProductivityBuilder
 from coach_bot.agents.identity import IdentityCoach
 from coach_bot.agents.memory_curator import MemoryCurator
 from coach_bot.agents.life_coworker import LifeCoworker
+from coach_bot.agents.report_designer import ReportDesigner
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +31,7 @@ AGENT_LABELS = {
     "identity": ("🌟", "Perspectiva"),
     "memory_curator": ("🗂️", "Memoria"),
     "life_coworker": ("🧠", "Coach"),
+    "report_designer": ("📊", "Reporte"),
 }
 
 
@@ -45,6 +47,7 @@ def build_agents(repo_path: str, api_key: str) -> dict:
         "identity": IdentityCoach(repo_path, api_key),
         "memory_curator": MemoryCurator(repo_path, api_key),
         "life_coworker": LifeCoworker(repo_path, api_key),
+        "report_designer": ReportDesigner(repo_path, api_key),
     }
 
 
@@ -186,6 +189,22 @@ class BotHandlers:
             except Exception:
                 await message.reply_text(proposal_text)
 
+    async def cmd_reporte(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        if not self._is_authorized(update):
+            return
+        message = update.message
+        await context.bot.send_chat_action(chat_id=message.chat_id, action="typing")
+        msg_context = {
+            "text": message.text or "/reporte",
+            "input_type": "report",
+        }
+        agent = self.agents["report_designer"]
+        result = await agent.analyze(msg_context, full=True)
+        try:
+            await message.reply_text(result, parse_mode=ParseMode.MARKDOWN)
+        except Exception:
+            await message.reply_text(result)
+
     async def cmd_start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         if not self._is_authorized(update):
             return
@@ -194,10 +213,14 @@ class BotHandlers:
             "Mándame una foto de AutoSleep, Jefit o Strava y te doy el análisis del día.\n"
             "También puedes escribirme directamente.\n\n"
             "*Comandos:*\n"
-            "/agentes — agentes disponibles\n"
+            "/agentes — ver todos los agentes\n"
             "/memoria — resumen de tu perfil\n"
             "/actualizar — sincronizar memoria desde GitHub\n"
-            "/reporte semanal — reporte semanal PDF (próximamente)\n"
+            "/reporte — reporte completo\n"
+            "/reporte semanal — resumen de la semana\n"
+            "/reporte mensual — resumen del mes\n"
+            "/reporte entreno — análisis de entrenamiento\n"
+            "/reporte nutricion — análisis de nutrición\n"
         )
         await update.message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
 

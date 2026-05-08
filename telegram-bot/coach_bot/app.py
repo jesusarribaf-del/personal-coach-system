@@ -41,6 +41,7 @@ class CoachBotApp(hass.Hass):
         app.add_handler(CommandHandler("agentes", handlers.cmd_agentes))
         app.add_handler(CommandHandler("memoria", handlers.cmd_memoria))
         app.add_handler(CommandHandler("actualizar", handlers.cmd_actualizar))
+        app.add_handler(CommandHandler("reporte", handlers.cmd_reporte))
         app.add_handler(
             MessageHandler(filters.TEXT | filters.PHOTO, handlers.handle_message)
         )

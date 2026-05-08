@@ -10,13 +10,20 @@ class InputType(Enum):
 _SLEEP_KEYWORDS = {"autosleep", "sueño", "dormir", "hvr", "hrv", "sleep"}
 _STRENGTH_KEYWORDS = {"jefit", "fuerza", "gym", "pesas", "serie", "rep", "kg", "peso muerto", "sentadilla", "banca"}
 _CARDIO_KEYWORDS = {"strava", "cardio", "correr", "running", "bici", "km", "ritmo", "pace"}
+_REPORT_KEYWORDS = {
+    "reporte", "informe", "resumen semanal", "resumen mensual", "balance semanal",
+    "balance del mes", "balance de la semana", "analítica", "estadísticas",
+    "cómo ha ido la semana", "cómo ha ido el mes", "dame un reporte",
+    "dame un informe", "analiza mi progresión", "analiza mi semana",
+    "analiza mi mes", "progreso del mes", "progreso de la semana",
+}
 
 _PRIMARY: dict[InputType, str] = {
     InputType.SLEEP_IMAGE: "sleep",
     InputType.WORKOUT_STRENGTH: "strength",
     InputType.WORKOUT_CARDIO: "strength",
     InputType.TEXT: "life_coworker",
-    InputType.REPORT: "life_coworker",
+    InputType.REPORT: "report_designer",
 }
 
 _SECONDARY: dict[InputType, list[str]] = {
@@ -30,7 +37,9 @@ _SECONDARY: dict[InputType, list[str]] = {
 class Orchestrator:
     def classify(self, message) -> InputType:
         text = (getattr(message, "text", None) or getattr(message, "caption", None) or "").lower().strip()
-        if any(text.startswith(k) for k in {"/reporte"}):
+        if text.startswith("/reporte"):
+            return InputType.REPORT
+        if any(kw in text for kw in _REPORT_KEYWORDS):
             return InputType.REPORT
         if getattr(message, "photo", None):
             for kw in _SLEEP_KEYWORDS:
