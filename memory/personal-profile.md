@@ -7,15 +7,15 @@
 ## Identidad
 
 - Nombre / cómo prefiere que le llamen: Jesús Arriba
-- Edad: **PENDIENTE**
+- Fecha de nacimiento: 13/08/1989 (36 años, cumple 37 en agosto 2026)
 - Ubicación (ciudad, país): España
 - Idioma principal: Español
-- Cronotipo (mañanero / nocturno / mixto): **PENDIENTE**
+- Cronotipo (mañanero / nocturno / mixto): **PENDIENTE** (confirmar tras inicio en Rovi 14 mayo)
 
 ## Contexto vital
 
-- Ocupación principal: Rovi (incorporación reciente, mayo 2026 — anterior Sodexo)
-- Horario laboral típico: **PENDIENTE**
+- Ocupación principal: Rovi (incorporación 14 mayo 2026 — anterior Sodexo)
+- Horario laboral típico: teóricamente 7:00-15:00h (confirmar a partir del 14 mayo)
 - Estado civil / convivencia: **PENDIENTE**
 - Hijos a cargo (sí/no, edades): **PENDIENTE**
 - Mascotas: **PENDIENTE**
@@ -23,7 +23,7 @@
 ## Salud base
 
 - Peso actual (kg): ~81.7 kg (media últimos 11 días a 20 abr 2026); media anual 79.77 kg
-- Altura (cm): **PENDIENTE**
+- Altura (cm): 183 cm
 - Condiciones médicas conocidas: ninguna conocida
 - Medicación habitual: ninguna
 - Alergias: ninguna conocida
@@ -44,7 +44,7 @@
 - Tabaco: exfumador — dejó ~febrero 2026
 - Alcohol: consumo social ~1 vez/semana
 - Cannabis: uso nocturno antes de dormir (impacta HRV)
-- Cafeína: **PENDIENTE**
+- Cafeína: 1 café al despertar; a veces otro tras siesta en días libres — corte temprano
 - Horas de sueño habituales: 6h 40min de media (últimas 12 semanas, Apple Watch)
 - Nivel de actividad fuera del entreno: activo — 14,087 pasos/día (media 6 semanas), 16h de pie/día
 - Distancia media diaria (andar+correr): 10.9 km/día (últimas 6 semanas); 7.6 km/día en 2026
