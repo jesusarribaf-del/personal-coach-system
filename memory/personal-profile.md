@@ -44,7 +44,7 @@
 
 - Tabaco: exfumador — dejó ~feb 2026 (había fumado Camel ~6/día desde los 21-22 años; recaída previa por aburrimiento al final de Sodexo)
 - Alcohol: consumo social ~1 vez/semana
-- Cannabis: **PROTOCOLO ALLEN CARR ACTIVO** — cese total el 05/05/2026 (día 3 sin cannabis a fecha 08/05/2026). Consumía 4-5 días libres + 2-3 días de trabajo, gasto 60-70€/semana, ~21-22 años de consumo. Reconocido como "el factor más diferenciador de su vida".
+- Cannabis: **PROTOCOLO ALLEN CARR ACTIVO** — cese previsto 11/05/2026 (lunes). Cese original 05/05 no completado. Consumo actual: 4-5 días libres + 2-3 días trabajo, 60-70€/semana. ~21-22 años de consumo. Reconocido como "el factor más diferenciador de su vida". Punto de riesgo: inicio Rovi 14/05.
 - Cafeína: 1 café al despertar; a veces otro tras siesta en días libres
 - Horas de sueño habituales: 6h 40min de media (últimas 12 semanas, AutoSleep Premium)
 - Nivel de actividad fuera del entreno: activo — 14,087 pasos/día (media 6 semanas), 16h de pie/día

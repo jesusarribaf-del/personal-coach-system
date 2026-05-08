@@ -19,13 +19,15 @@
 
 ## Hábitos vigentes en construcción
 
-### Sin cannabis — PROTOCOLO ALLEN CARR ACTIVO
+### Sin cannabis — PROTOCOLO ALLEN CARR EN CURSO
 - Identidad: "Soy una persona libre, que no necesita nada para funcionar"
-- Inicio protocolo: 29/04/2026 | Cese total: 05/05/2026 | Hoy (08/05): día 3 limpio
-- Cierre fase aguda: 13/05/2026 | Punto de riesgo: inicio Rovi 14/05/2026
+- Inicio protocolo Allen Carr: 29/04/2026
+- Cese total previsto: **11/05/2026** (lunes)
+- Punto de riesgo principal: inicio Rovi 14/05/2026 (3 días después del cese)
+- Estado actual (08/05/2026): aún consumiendo — cese no completado en fecha original (05/05)
 - Plan recaída: releer marco Allen Carr — el cannabis no aporta, solo alivia el déficit que él mismo creó
-- Estado: **EN CURSO — crítico** — 21-22 años de consumo, intentos previos fallidos
-- Impacto esperado en VFC: recuperación progresiva hacia pico histórico (44ms → 99ms potencial)
+- 21-22 años de consumo, intentos previos fallidos. Frecuencia actual: 4-5 días libres + 2-3 días trabajo
+- Impacto esperado en VFC tras cese: recuperación progresiva hacia pico histórico (44ms → 99ms potencial)
 
 ### Cardio Z2 regular
 - Identidad: "Soy una persona con base aeróbica sólida"
@@ -58,7 +60,7 @@
 | Hábito   | Fecha abandono | Causa                                                      |
 |----------|----------------|------------------------------------------------------------|
 | Tabaco   | ~feb 2026      | Allen Carr. Historial: 21-22 años fumando ~6 Camels/día. Recaída previa por aburrimiento al final de Sodexo. |
-| Cannabis | 05/05/2026     | Allen Carr (protocolo activo). Reconocido como el factor más diferenciador de su vida. |
+| Cannabis | 11/05/2026 (previsto) | Allen Carr (protocolo activo). Cese original 05/05 no completado. Reconocido como el factor más diferenciador de su vida. |
 
 ---
 
