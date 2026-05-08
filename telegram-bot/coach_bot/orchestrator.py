@@ -30,7 +30,7 @@ _SECONDARY: dict[InputType, list[str]] = {
     InputType.SLEEP_IMAGE: ["strength", "nutrition", "meditation"],
     InputType.WORKOUT_STRENGTH: ["nutrition", "sleep", "motivation"],
     InputType.WORKOUT_CARDIO: ["nutrition", "sleep"],
-    InputType.TEXT: ["strength", "nutrition", "sleep", "meditation", "decisions", "motivation"],
+    InputType.TEXT: ["strength", "nutrition", "sleep", "meditation", "decisions", "motivation", "memory_curator"],
     InputType.REPORT: [],
 }
 
