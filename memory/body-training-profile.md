@@ -58,12 +58,23 @@
 | Dominada lastre    | +10 kg        |
 | Cardio Z2          | 40 min continuo |
 
+## Rutina cardio — Jefit (Miércoles · Viernes · Domingo)
+
+| Día       | Tipo         | Duración | Zona           |
+|-----------|--------------|----------|----------------|
+| Miércoles | Z2 · cinta   | 45 min   | Aeróbico base  |
+| Viernes   | HIIT · cinta | 25 min   | Z4-Z1 (intervalos) |
+| Domingo   | Z2 · cinta   | 45 min   | Aeróbico base  |
+
+**Semana completa teórica:** L-Push · M-Pull · X-Z2 · J-Legs · V-HIIT · S-Upper+ · D-Z2
+
 ## Cardio (Strava, feb-abr 2026)
 
 - Actividades: carrera (2-10 km), bicicleta, caminata, elíptica
 - FC máxima típica en entreno: 148-154 lpm
 - FC media típica en entreno: 130-142 lpm
 - VO2max estimado: por debajo de la media (Apple Health)
+- ⚠️ Z2 real para Jesús (36 años, FCmax ~184 lpm): 110-129 lpm — los entrenamientos actuales (130-142 lpm) son Z3, no Z2
 
 ## VFC y recuperación
 
@@ -80,10 +91,58 @@
 
 - Ninguna conocida actualmente
 
-## Plan vigente
+## Plan vigente — Hypertrophy 4 Days (Jefit)
 
-- Programa actual: **PENDIENTE** (app Jefit)
-- Mesociclo: **PENDIENTE**
+**Estructura:** Push / Pull / Legs / Upper+ | Lunes-Martes-Jueves-Sábado  
+**Objetivo:** Bulking · Nivel intermedio
+
+### Lunes — Push (Pecho · Hombro · Tríceps) ~38 min
+
+| Ejercicio                       | Series × Reps       |
+|---------------------------------|---------------------|
+| Barbell Bench Press             | 4 × 8               |
+| Dumbbell Incline Bench Press    | 3 × 10, 8, 6        |
+| Machine Fly                     | 3 × 15, 12, 12      |
+| Leverage Shoulder Press         | 3 × 9, 8, 7         |
+| Cable Lateral Raise             | 3 × 12, 10, 8       |
+| Cable Tricep Pushdown (Rope)    | 3 × 12, 10, 8       |
+
+### Martes — Pull (Espalda · Bíceps · Rear Delt) ~36 min
+
+| Ejercicio                       | Series × Reps       |
+|---------------------------------|---------------------|
+| Machine Assisted Pull-Up        | 5 × 8, 8, 8, 8, 6   |
+| Machine Lat Pulldown            | 3 × 10, 8, 8        |
+| Cable Seated Row                | 3 × 12, 10, 10      |
+| Cable Rope Face Pull            | 3 × 20, 15, 10      |
+| Dumbbell Incline Curl           | 3 × 12, 12, 10      |
+| Dumbbell Hammer Curl            | 3 × 15, 12, 12      |
+
+### Jueves — Pierna (Cuádriceps · Isquios · Glúteo · Core) ~56 min
+
+| Ejercicio                          | Series × Reps       |
+|------------------------------------|---------------------|
+| Barbell Deep Squat                 | 4 × 8, 8, 6, 6      |
+| Machine Leg Press                  | 3 × 12              |
+| Barbell Romanian Deadlift          | 3 × 10, 10, 8       |
+| Barbell Hip Thrust                 | 3 × 10, 8, 8        |
+| Machine Leg Curl (Prone)           | 3 × 12, 15, 9       |
+| Barbell Rocking Standing Calf Raise| 3 × 12              |
+| Plank                              | 3 series            |
+| Hanging Leg Raise                  | 3 × 12              |
+
+### Sábado — Upper+ (Fuerza compuesta + accesorio) ~35 min
+
+| Ejercicio                           | Series × Reps       |
+|-------------------------------------|---------------------|
+| Trap Bar Overhead Press             | 3 × 8               |
+| Machine Assisted Pull-Up            | 4 × 8               |
+| Dumbbell One-Arm Row                | 3 × 12, 10, 10      |
+| Machine Fly                         | 3 × 15, 12, 12      |
+| Cable Rope Face Pull                | 3 × 20, 15, 15      |
+| Cable Rope Overhead Tricep Extension| 3 × 15, 12, 12      |
+
+- Mesociclo actual: **PENDIENTE** (semana X de Y)
 - Próxima descarga prevista: **PENDIENTE**
 
 ---
