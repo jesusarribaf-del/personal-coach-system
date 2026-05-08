@@ -28,7 +28,8 @@ class BaseAgent(ABC):
         if not full and not self.is_relevant(context.get("input_type", "text")):
             return None
         memory_context = self.memory.read_files(self.MEMORY_FILES)
-        messages = self._build_messages(context, memory_context, full)
+        conv_context = context.get("conv_context", "")
+        messages = self._build_messages(context, memory_context, full, conv_context)
         model = self.MODEL_FULL if full else self.MODEL_BRIEF
         max_tokens = 600 if full else 200
         loop = asyncio.get_running_loop()
@@ -46,7 +47,9 @@ class BaseAgent(ABC):
             return None
         return text
 
-    def _build_messages(self, context: dict, memory: str, full: bool) -> list:
+    def _build_messages(
+        self, context: dict, memory: str, full: bool, conv_context: str = ""
+    ) -> list:
         content = []
         if context.get("image_base64"):
             content.append({
@@ -65,6 +68,11 @@ class BaseAgent(ABC):
                 f"Si NO tienes nada relevante, responde EXACTAMENTE: {NO_CONTRIBUTION}\n\n"
                 f"{task_text}"
             )
-        prompt = f"MEMORIA DEL USUARIO:\n{memory}\n\nINPUT:\n{task_text}" if memory else task_text
-        content.append({"type": "text", "text": prompt})
+        parts = []
+        if memory:
+            parts.append(f"MEMORIA DEL USUARIO:\n{memory}")
+        if conv_context:
+            parts.append(conv_context)
+        parts.append(f"INPUT:\n{task_text}")
+        content.append({"type": "text", "text": "\n\n".join(parts)})
         return [{"role": "user", "content": content}]

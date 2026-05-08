@@ -52,12 +52,21 @@ def build_agents(repo_path: str, api_key: str) -> dict:
 
 
 class BotHandlers:
-    def __init__(self, repo_path: str, api_key: str, authorized_chat_id: int):
+    def __init__(
+        self,
+        repo_path: str,
+        api_key: str,
+        authorized_chat_id: int,
+        store=None,
+        context_builder=None,
+    ):
         self.orchestrator = Orchestrator()
         self.agents = build_agents(repo_path, api_key)
         self.authorized_chat_id = authorized_chat_id
         self.repo_path = repo_path
         self._pending_memory: dict[int, dict] = {}
+        self._store = store
+        self._ctx_builder = context_builder
 
     def _is_authorized(self, update: Update) -> bool:
         return update.effective_chat.id == self.authorized_chat_id
@@ -122,7 +131,12 @@ class BotHandlers:
 
         await context.bot.send_chat_action(chat_id=message.chat_id, action="typing")
 
-        msg_context = {"text": message.text or message.caption or ""}
+        raw_text = message.text or message.caption or ""
+        msg_context = {"text": raw_text}
+
+        # Inject conversation history context
+        if self._ctx_builder and raw_text:
+            msg_context["conv_context"] = self._ctx_builder.build(message.chat_id, raw_text)
 
         if message.photo:
             photo = message.photo[-1]
@@ -173,6 +187,18 @@ class BotHandlers:
             await message.reply_text(response, parse_mode=ParseMode.MARKDOWN)
         except Exception:
             await message.reply_text(response)
+
+        # Persist this exchange for future context
+        if self._store:
+            try:
+                self._store.add_turn(
+                    message.chat_id,
+                    raw_text,
+                    primary_result if isinstance(primary_result, str) else response,
+                    input_type.value,
+                )
+            except Exception as e:
+                logger.warning(f"[BotHandlers] Could not save turn: {e}")
 
         # Detectar si algún agente propone actualizar memoria
         memory_proposal = self._extract_memory_proposal(primary_result if isinstance(primary_result, str) else "")
