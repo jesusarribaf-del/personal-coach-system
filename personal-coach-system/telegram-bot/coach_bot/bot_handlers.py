@@ -166,7 +166,10 @@ class BotHandlers:
             secondary_results=secondary_labeled,
         )
 
-        await message.reply_text(response, parse_mode=ParseMode.MARKDOWN)
+        try:
+            await message.reply_text(response, parse_mode=ParseMode.MARKDOWN)
+        except Exception:
+            await message.reply_text(response)
 
         # Detectar si algún agente propone actualizar memoria
         memory_proposal = self._extract_memory_proposal(primary_result if isinstance(primary_result, str) else "")
@@ -178,7 +181,10 @@ class BotHandlers:
                 f"```\n{memory_proposal['content'][:400]}\n```\n"
                 f"¿Confirmas? Responde *sí* o *no*"
             )
-            await message.reply_text(proposal_text, parse_mode=ParseMode.MARKDOWN)
+            try:
+                await message.reply_text(proposal_text, parse_mode=ParseMode.MARKDOWN)
+            except Exception:
+                await message.reply_text(proposal_text)
 
     async def cmd_start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         if not self._is_authorized(update):
@@ -217,9 +223,14 @@ class BotHandlers:
         if not self._is_authorized(update):
             return
         import subprocess
-        result = subprocess.run(
-            ["git", "-C", self.repo_path, "pull", "origin", "main"],
-            capture_output=True, text=True
-        )
-        msg = "✅ Memoria sincronizada." if result.returncode == 0 else f"⚠️ Error: {result.stderr[:200]}"
+        try:
+            result = subprocess.run(
+                ["git", "-C", self.repo_path, "pull", "origin", "main"],
+                capture_output=True, text=True, timeout=30
+            )
+            msg = "✅ Memoria sincronizada." if result.returncode == 0 else f"⚠️ Error: {result.stderr[:200]}"
+        except FileNotFoundError:
+            msg = "⚠️ git no disponible en el contenedor. Usa la automation de HA para sincronizar."
+        except Exception as e:
+            msg = f"⚠️ Error: {e}"
         await update.message.reply_text(msg)
