@@ -15,7 +15,8 @@ class CoachBotApp(hass.Hass):
         self.api_key = self.args["anthropic_api_key"]
         self.repo_path = self.args["repo_path"]
         self.authorized_chat_id = int(self.args["authorized_chat_id"])
-        self.store_path = self.args.get("store_path", "/config/coach_bot_staging/conv_store")
+        self.store_path     = self.args.get("store_path", "/config/coach_bot_staging/conv_store")
+        self.voyage_api_key = self.args.get("voyage_api_key")
 
         self.log("CoachBot: iniciando...")
         self._bot_thread = threading.Thread(target=self._run_bot, daemon=True, name="coach-bot")
@@ -48,7 +49,7 @@ class CoachBotApp(hass.Hass):
         from coach_bot.bot_handlers import BotHandlers
         from coach_bot.conv_memory import ConversationStore, ContextBuilder, MemorySummarizer
 
-        store = ConversationStore(self.store_path)
+        store = ConversationStore(self.store_path, voyage_api_key=self.voyage_api_key)
         ctx_builder = ContextBuilder(store)
         self._summarizer = MemorySummarizer(store, self.api_key)
 

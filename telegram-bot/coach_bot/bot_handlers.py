@@ -134,9 +134,12 @@ class BotHandlers:
         raw_text = message.text or message.caption or ""
         msg_context = {"text": raw_text}
 
-        # Inject conversation history context
+        # Inject conversation history context (run_in_executor: Voyage AI call is blocking)
         if self._ctx_builder and raw_text:
-            msg_context["conv_context"] = self._ctx_builder.build(message.chat_id, raw_text)
+            loop = asyncio.get_running_loop()
+            msg_context["conv_context"] = await loop.run_in_executor(
+                None, lambda: self._ctx_builder.build(message.chat_id, raw_text)
+            )
 
         if message.photo:
             photo = message.photo[-1]
@@ -188,14 +191,15 @@ class BotHandlers:
         except Exception:
             await message.reply_text(response)
 
-        # Persist this exchange for future context
+        # Persist this exchange (run_in_executor: Voyage AI embed call is blocking)
         if self._store:
             try:
-                self._store.add_turn(
-                    message.chat_id,
-                    raw_text,
-                    primary_result if isinstance(primary_result, str) else response,
-                    input_type.value,
+                saved_text = primary_result if isinstance(primary_result, str) else response
+                await asyncio.get_running_loop().run_in_executor(
+                    None,
+                    lambda: self._store.add_turn(
+                        message.chat_id, raw_text, saved_text, input_type.value
+                    ),
                 )
             except Exception as e:
                 logger.warning(f"[BotHandlers] Could not save turn: {e}")
