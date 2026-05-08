@@ -19,14 +19,13 @@
 
 ## Hábitos vigentes en construcción
 
-### Sin cannabis nocturno
-- Identidad: "Soy una persona que duerme sin ayudas externas"
-- Duración mínima viable: no consumir 30 min antes de dormir
-- Anclaje: antes de acostarse
-- Plan día malo: meditación corta (5 min) como sustituto
-- Inicio: **PENDIENTE** — aún no iniciado
-- Estado: hábito activo negativo a reducir
-- Impacto en VFC: documentado — VFC suprimida (44ms actual vs 99ms pico)
+### Sin cannabis — PROTOCOLO ALLEN CARR ACTIVO
+- Identidad: "Soy una persona libre, que no necesita nada para funcionar"
+- Inicio protocolo: 29/04/2026 | Cese total: 05/05/2026 | Hoy (08/05): día 3 limpio
+- Cierre fase aguda: 13/05/2026 | Punto de riesgo: inicio Rovi 14/05/2026
+- Plan recaída: releer marco Allen Carr — el cannabis no aporta, solo alivia el déficit que él mismo creó
+- Estado: **EN CURSO — crítico** — 21-22 años de consumo, intentos previos fallidos
+- Impacto esperado en VFC: recuperación progresiva hacia pico histórico (44ms → 99ms potencial)
 
 ### Cardio Z2 regular
 - Identidad: "Soy una persona con base aeróbica sólida"
@@ -56,9 +55,10 @@
 
 ## Hábitos abandonados (con causa)
 
-| Hábito  | Fecha abandono | Causa            |
-|---------|----------------|------------------|
-| Tabaco  | ~feb 2026      | Decisión propia  |
+| Hábito   | Fecha abandono | Causa                                                      |
+|----------|----------------|------------------------------------------------------------|
+| Tabaco   | ~feb 2026      | Allen Carr. Historial: 21-22 años fumando ~6 Camels/día. Recaída previa por aburrimiento al final de Sodexo. |
+| Cannabis | 05/05/2026     | Allen Carr (protocolo activo). Reconocido como el factor más diferenciador de su vida. |
 
 ---
 

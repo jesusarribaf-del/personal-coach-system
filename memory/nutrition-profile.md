@@ -36,11 +36,21 @@
 
 ## Estilo alimentario habitual
 
-- Número de comidas/día: 4
+- Número de comidas/día: 4 (objetivo — batch cooking operativo desde 14/05)
 - Comidas fuera de casa/semana: **PENDIENTE**
 - Quien cocina en casa: él mismo
 - Tiempo realista para cocinar al día: ~1 hora (batch cooking x2/semana)
 - Batch cooking: domingos y miércoles
+
+### Día tipo actual (pre-diseño)
+
+| Comida   | Contenido                                  | Problema                        |
+|----------|--------------------------------------------|---------------------------------|
+| Desayuno | Solo café                                  | ⚠️ 0 proteína — agujero principal |
+| Comida   | Pendiente de diseñar                       | —                               |
+| Cena     | 4 huevos + tomate + pan + queso + yogur + galletas | Base correcta, mejorable |
+| Snacks   | Chuches, frutos secos                      | Chuches = azúcar vacío          |
+| Bebidas  | Agua, café, manzanilla, Coca-Cola 0.0      | OK                              |
 
 ## Electrodomésticos disponibles
 
@@ -52,8 +62,8 @@
 
 ## Suplementación actual
 
-- Proteína en polvo: Iso Whey (marca indiferente, dosis: **PENDIENTE**)
-- Creatina monohidrato (marca indiferente, dosis: **PENDIENTE**, hora: **PENDIENTE**)
+- Proteína en polvo: Amix Iso Whey (dosis: **PENDIENTE**)
+- Creatina monohidrato: 5g/día (marca indiferente, hora: **PENDIENTE**)
 
 ## Compra y presupuesto
 

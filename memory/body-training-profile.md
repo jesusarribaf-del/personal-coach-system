@@ -14,7 +14,7 @@
 
 ## Material y entorno
 
-- Gimnasio: sí (equipamiento completo — barras, poleas, máquinas)
+- Gimnasio: Nine Fitness Cañaveral (Madrid) — equipamiento completo
 - Material en casa: **PENDIENTE**
 - Espacio disponible: **PENDIENTE**
 
@@ -27,11 +27,21 @@
 
 ## Historial
 
-- Inicio entrenamiento de fuerza estructurado: agosto 2025
+- Inicio entrenamiento de fuerza estructurado: agosto 2025 (v1 rutina actual desde 29/04/2026)
 - Sesiones completadas: 60+ (agosto 2025 - abril 2026, 9 meses)
 - Fase actual: intermedio
-- Disciplinas previas: karate (4-15 años), kickboxing/muay thai (20-25 años)
-- Programas previos: **PENDIENTE** (usa Jefit)
+- Disciplinas previas: karate (4-15 años, cinturón marrón), kickboxing/muay thai (20-25 años)
+- Años entrenando fuerza: 5-6 años muy intermitentes (rachas 6-12 meses + parones). Patrón de riesgo documentado.
+
+## Mejores marcas históricas (antes de la etapa actual)
+
+| Ejercicio     | Marca histórica | Vs. actual (may 2026)   |
+|---------------|-----------------|-------------------------|
+| Sentadilla    | 70 kg           | 80 kg ✅ superada        |
+| Press banca   | 70 kg           | 65 kg (en progresión)   |
+| Peso muerto   | 70 kg           | no registrado aún       |
+| Dominadas     | 4×12 peso corporal | +5 kg (progresando)  |
+| 5K            | 26 min          | **PENDIENTE** medición  |
 
 ## Marcas actuales — Abril 2026
 
@@ -70,11 +80,22 @@
 
 ## Cardio (Strava, feb-abr 2026)
 
-- Actividades: carrera (2-10 km), bicicleta, caminata, elíptica
-- FC máxima típica en entreno: 148-154 lpm
-- FC media típica en entreno: 130-142 lpm
+- 40 actividades: 15 carreras (59 km), 19 caminatas (40 km), 2 bici, 3 sesiones pesas
+- FC media running: 130 lpm · Ritmo medio: ~10 min/km
+- Carrera más larga: 10.63 km (27 abr 2026)
+- Progresión: feb ritmos 10-35 min/km (mezcla andar/correr) → abr ritmos 8-11 min/km continuos
+- **FC máxima registrada: 178 bpm** (Strava, abr 2026)
 - VO2max estimado: por debajo de la media (Apple Health)
-- ⚠️ Z2 real para Jesús (36 años, FCmax ~184 lpm): 110-129 lpm — los entrenamientos actuales (130-142 lpm) son Z3, no Z2
+
+### Zonas cardio activas (definición propia)
+
+| Zona | FC | Uso |
+|------|----|-----|
+| Z1 — recuperación | <125 lpm | Recuperación entre series HIIT. Bajar de verdad. |
+| Z2 — base aeróbica | 130-145 lpm | Sesiones largas miércoles y domingo |
+| Z4 — alta intensidad | 158-168 lpm | Series HIIT (30s) |
+
+> Nota: Z2 definida como 130-145 lpm (73-81% de FCmax 178). Fisiológicamente es Z2-Z3 frontera, pero funciona como referencia de entrenamiento.
 
 ## VFC y recuperación
 
@@ -85,11 +106,12 @@
 
 ## Lesiones / molestias activas
 
-- Ninguna conocida actualmente
+- Adormecimiento pie derecho en cinta (una vez, posiblemente cordones apretados — revisar calzado)
+- Hombro derecho: historial de dolor crónico al final de etapa muay thai — sin manifestarse actualmente. Face pull en Pull y Upper+ como profilaxis inamovible.
 
 ## Restricciones
 
-- Ninguna conocida actualmente
+- Hombro derecho: monitorizar cualquier molestia. Face pull nunca eliminar.
 
 ## Plan vigente — Hypertrophy 4 Days (Jefit)
 
