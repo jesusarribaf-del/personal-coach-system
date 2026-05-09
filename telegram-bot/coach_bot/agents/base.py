@@ -1,6 +1,15 @@
 import asyncio
+import datetime
 from abc import ABC, abstractmethod
 from anthropic import Anthropic
+
+_DAYS_ES = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
+
+
+def _today_context() -> str:
+    today = datetime.date.today()
+    day_name = _DAYS_ES[today.weekday()]
+    return f"Fecha actual: {today.strftime('%d/%m/%Y')} ({day_name})"
 
 NO_CONTRIBUTION = "NO_APORTACION"
 
@@ -11,8 +20,8 @@ class BaseAgent(ABC):
     LABEL: str = "Agente"
     MODEL_FULL = "claude-sonnet-4-6"
     MODEL_BRIEF = "claude-haiku-4-5-20251001"
-    MAX_TOKENS_FULL = 1000
-    MAX_TOKENS_BRIEF = 300
+    MAX_TOKENS_FULL = 1200
+    MAX_TOKENS_BRIEF = 350
 
     def __init__(self, repo_path: str, api_key: str):
         from coach_bot.memory_reader import MemoryReader
@@ -74,7 +83,7 @@ class BaseAgent(ABC):
                 f"Si NO tienes nada relevante o el agente principal ya lo cubre, responde EXACTAMENTE: {NO_CONTRIBUTION}\n\n"
                 f"{task_text}"
             )
-        parts = []
+        parts = [_today_context()]
         if memory:
             parts.append(f"MEMORIA DEL USUARIO:\n{memory}")
         if conv_context:

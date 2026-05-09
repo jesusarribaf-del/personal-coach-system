@@ -26,15 +26,19 @@ async def synthesize_unified(
         None,
         lambda: client.messages.create(
             model="claude-haiku-4-5-20251001",
-            max_tokens=700,
+            max_tokens=1200,
             system=(
                 "Sintetiza los siguientes análisis de agentes especializados en UN único mensaje "
                 "de Telegram para el coach personal de Jesús. "
                 "Escribe como un solo coach hablando directamente, en lenguaje natural y fluido. "
-                "Reglas: un solo bloque de texto sin títulos ni emojis de sección, "
-                "sin repetir información, priorizando lo más accionable para HOY, "
+                "Reglas: "
+                "un solo bloque de texto sin títulos ni emojis de sección; "
+                "no repitas información redundante pero SÍ conserva los detalles específicos "
+                "y valiosos de cada agente: protocolos concretos, mecanismos fisiológicos, "
+                "números, horarios, ejercicios específicos, técnicas de respiración, etc.; "
+                "prioriza lo más accionable para HOY; "
                 "tono directo sin preambles ('Hoy...', 'VFC...', no 'Como podemos ver...'). "
-                "Máximo 280 palabras."
+                "Máximo 420 palabras."
             ),
             messages=[{
                 "role": "user",
