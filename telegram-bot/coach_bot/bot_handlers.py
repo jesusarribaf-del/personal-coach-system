@@ -4,8 +4,8 @@ import logging
 from telegram import Update
 from telegram.ext import ContextTypes
 from telegram.constants import ParseMode
-from coach_bot.orchestrator import Orchestrator, InputType
-from coach_bot.synthesizer import synthesize
+from coach_bot.orchestrator import Orchestrator
+from coach_bot.synthesizer import synthesize_unified
 from coach_bot.agents.sleep import SleepCoach
 from coach_bot.agents.strength import StrengthCoach
 from coach_bot.agents.nutrition import NutritionCoach
@@ -62,11 +62,14 @@ class BotHandlers:
     ):
         self.orchestrator = Orchestrator()
         self.agents = build_agents(repo_path, api_key)
+        self.api_key = api_key
         self.authorized_chat_id = authorized_chat_id
         self.repo_path = repo_path
         self._pending_memory: dict[int, dict] = {}
         self._store = store
         self._ctx_builder = context_builder
+        self._media_groups: dict[str, dict] = {}
+        self._media_group_tasks: dict[str, asyncio.Task] = {}
 
     def _is_authorized(self, update: Update) -> bool:
         return update.effective_chat.id == self.authorized_chat_id
@@ -119,7 +122,6 @@ class BotHandlers:
 
         message = update.message
 
-        # Gestionar confirmación de propuesta de memoria pendiente
         text_lower = (message.text or "").lower().strip()
         if message.chat_id in self._pending_memory and text_lower in ("sí", "si", "yes", "s", "y"):
             await self._apply_memory_update(message, self._pending_memory.pop(message.chat_id))
@@ -129,34 +131,70 @@ class BotHandlers:
             await message.reply_text("❌ Propuesta descartada.")
             return
 
+        if message.media_group_id:
+            await self._buffer_media_group(message, context)
+            return
+
         await context.bot.send_chat_action(chat_id=message.chat_id, action="typing")
+        photos = [message.photo[-1]] if message.photo else []
+        text = message.text or message.caption or ""
+        await self._run_agents(message, context, photos=photos, text=text)
 
-        raw_text = message.text or message.caption or ""
-        msg_context = {"text": raw_text}
+    async def _buffer_media_group(self, message, context):
+        gid = message.media_group_id
+        if gid not in self._media_groups:
+            self._media_groups[gid] = {"first": message, "photos": [], "text": ""}
+        grp = self._media_groups[gid]
+        if message.photo:
+            grp["photos"].append(message.photo[-1])
+        if message.caption and not grp["text"]:
+            grp["text"] = message.caption
+        if gid in self._media_group_tasks:
+            self._media_group_tasks[gid].cancel()
+        self._media_group_tasks[gid] = asyncio.create_task(self._flush_group(gid, context))
 
-        # Inject conversation history context (run_in_executor: Voyage AI call is blocking)
-        if self._ctx_builder and raw_text:
+    async def _flush_group(self, gid: str, context):
+        try:
+            await asyncio.sleep(1.5)
+        except asyncio.CancelledError:
+            return
+        grp = self._media_groups.pop(gid, None)
+        self._media_group_tasks.pop(gid, None)
+        if not grp:
+            return
+        msg = grp["first"]
+        await context.bot.send_chat_action(chat_id=msg.chat_id, action="typing")
+        await self._run_agents(msg, context, photos=grp["photos"], text=grp["text"])
+
+    async def _run_agents(self, message, context, photos: list, text: str):
+        msg_context = {"text": text}
+
+        if self._ctx_builder and text:
             loop = asyncio.get_running_loop()
             msg_context["conv_context"] = await loop.run_in_executor(
-                None, lambda: self._ctx_builder.build(message.chat_id, raw_text)
+                None, lambda: self._ctx_builder.build(message.chat_id, text)
             )
 
-        if message.photo:
-            photo = message.photo[-1]
-            file = await context.bot.get_file(photo.file_id)
-            photo_bytes = await file.download_as_bytearray()
-            msg_context["image_base64"] = base64.b64encode(photo_bytes).decode()
-            msg_context["image_media_type"] = "image/jpeg"
+        if photos:
+            images = []
+            for photo in photos:
+                file = await context.bot.get_file(photo.file_id)
+                photo_bytes = await file.download_as_bytearray()
+                images.append({
+                    "base64": base64.b64encode(photo_bytes).decode(),
+                    "media_type": "image/jpeg",
+                })
+            msg_context["images"] = images
+            msg_context["image_base64"] = images[0]["base64"]
+            msg_context["image_media_type"] = images[0]["media_type"]
 
-        input_type = self.orchestrator.classify(message)
+        input_type = self.orchestrator.classify_from(text=text, has_photo=bool(photos))
         msg_context["input_type"] = input_type.value
 
         primary_key = self.orchestrator.get_primary_key(input_type)
         secondary_keys = self.orchestrator.get_secondary_keys(input_type)
 
         primary_agent = self.agents[primary_key]
-        primary_emoji, primary_label_name = AGENT_LABELS[primary_key]
-        primary_label = f"{primary_emoji} {primary_label_name}"
 
         secondary_tasks = [
             (k, self.agents[k].analyze(msg_context, full=False))
@@ -180,31 +218,25 @@ class BotHandlers:
         if isinstance(primary_result, BaseException):
             primary_result = "Error al obtener análisis. Inténtalo de nuevo."
 
-        response = synthesize(
-            primary_text=primary_result,
-            primary_label=primary_label,
-            secondary_results=secondary_labeled,
-        )
+        response = await synthesize_unified(self.api_key, primary_result, secondary_labeled)
 
         try:
             await message.reply_text(response, parse_mode=ParseMode.MARKDOWN)
         except Exception:
             await message.reply_text(response)
 
-        # Persist this exchange (run_in_executor: Voyage AI embed call is blocking)
         if self._store:
             try:
                 saved_text = primary_result if isinstance(primary_result, str) else response
                 await asyncio.get_running_loop().run_in_executor(
                     None,
                     lambda: self._store.add_turn(
-                        message.chat_id, raw_text, saved_text, input_type.value
+                        message.chat_id, text, saved_text, input_type.value
                     ),
                 )
             except Exception as e:
                 logger.warning(f"[BotHandlers] Could not save turn: {e}")
 
-        # Detectar si algún agente propone actualizar memoria
         memory_proposal = self._extract_memory_proposal(primary_result if isinstance(primary_result, str) else "")
         if memory_proposal:
             self._pending_memory[message.chat_id] = memory_proposal

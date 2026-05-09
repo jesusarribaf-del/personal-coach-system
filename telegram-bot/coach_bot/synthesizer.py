@@ -1,19 +1,46 @@
+import asyncio
 import datetime
 import sys
+from anthropic import Anthropic
 
 
-def synthesize(
+async def synthesize_unified(
+    api_key: str,
     primary_text: str,
-    primary_label: str,
     secondary_results: list[tuple[str, str | None]],
 ) -> str:
     fmt = "%#d %b" if sys.platform == "win32" else "%-d %b"
-    today = datetime.date.today().strftime(fmt)
-    lines = [f"📊 *Análisis · {today}*\n"]
-    lines.append(f"*{primary_label}*")
-    lines.append(primary_text)
-    for label, text in secondary_results:
-        if text and text.strip():
-            lines.append(f"\n*{label}*")
-            lines.append(text)
-    return "\n".join(lines)
+    date_str = datetime.date.today().strftime(fmt)
+
+    secondary_texts = [text for _, text in secondary_results if text and text.strip()]
+
+    if not secondary_texts:
+        return f"*{date_str}*\n\n{primary_text}"
+
+    combined = primary_text + "\n\n---\n\n" + "\n\n---\n\n".join(secondary_texts)
+
+    loop = asyncio.get_running_loop()
+    client = Anthropic(api_key=api_key)
+
+    response = await loop.run_in_executor(
+        None,
+        lambda: client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=700,
+            system=(
+                "Sintetiza los siguientes análisis de agentes especializados en UN único mensaje "
+                "de Telegram para el coach personal de Jesús. "
+                "Escribe como un solo coach hablando directamente, en lenguaje natural y fluido. "
+                "Reglas: un solo bloque de texto sin títulos ni emojis de sección, "
+                "sin repetir información, priorizando lo más accionable para HOY, "
+                "tono directo sin preambles ('Hoy...', 'VFC...', no 'Como podemos ver...'). "
+                "Máximo 280 palabras."
+            ),
+            messages=[{
+                "role": "user",
+                "content": f"Fecha: {date_str}\n\n{combined}"
+            }],
+        ),
+    )
+
+    return f"*{date_str}*\n\n" + response.content[0].text.strip()

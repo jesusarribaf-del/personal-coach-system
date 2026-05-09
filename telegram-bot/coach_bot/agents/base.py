@@ -11,6 +11,8 @@ class BaseAgent(ABC):
     LABEL: str = "Agente"
     MODEL_FULL = "claude-sonnet-4-6"
     MODEL_BRIEF = "claude-haiku-4-5-20251001"
+    MAX_TOKENS_FULL = 1000
+    MAX_TOKENS_BRIEF = 300
 
     def __init__(self, repo_path: str, api_key: str):
         from coach_bot.memory_reader import MemoryReader
@@ -31,7 +33,7 @@ class BaseAgent(ABC):
         conv_context = context.get("conv_context", "")
         messages = self._build_messages(context, memory_context, full, conv_context)
         model = self.MODEL_FULL if full else self.MODEL_BRIEF
-        max_tokens = 600 if full else 200
+        max_tokens = self.MAX_TOKENS_FULL if full else self.MAX_TOKENS_BRIEF
         loop = asyncio.get_running_loop()
         response = await loop.run_in_executor(
             None,
@@ -51,21 +53,25 @@ class BaseAgent(ABC):
         self, context: dict, memory: str, full: bool, conv_context: str = ""
     ) -> list:
         content = []
-        if context.get("image_base64"):
+        images = context.get("images") or (
+            [{"base64": context["image_base64"], "media_type": context.get("image_media_type", "image/jpeg")}]
+            if context.get("image_base64") else []
+        )
+        for img in images:
             content.append({
                 "type": "image",
                 "source": {
                     "type": "base64",
-                    "media_type": context.get("image_media_type", "image/jpeg"),
-                    "data": context["image_base64"],
+                    "media_type": img.get("media_type", "image/jpeg"),
+                    "data": img["base64"],
                 },
             })
         task_text = context.get("text", "Analiza el input proporcionado.")
         if not full:
             task_text = (
                 f"Analiza este input desde tu dominio especializado. "
-                f"Si tienes algo concreto y accionable que añadir, hazlo en máximo 3 líneas. "
-                f"Si NO tienes nada relevante, responde EXACTAMENTE: {NO_CONTRIBUTION}\n\n"
+                f"Si tienes algo concreto y accionable que añadir, escríbelo en 2-3 frases directas, sin títulos ni cabeceras. "
+                f"Si NO tienes nada relevante o el agente principal ya lo cubre, responde EXACTAMENTE: {NO_CONTRIBUTION}\n\n"
                 f"{task_text}"
             )
         parts = []

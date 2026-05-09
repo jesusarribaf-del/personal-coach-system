@@ -35,13 +35,13 @@ _SECONDARY: dict[InputType, list[str]] = {
 }
 
 class Orchestrator:
-    def classify(self, message) -> InputType:
-        text = (getattr(message, "text", None) or getattr(message, "caption", None) or "").lower().strip()
+    def classify_from(self, text: str = "", has_photo: bool = False) -> InputType:
+        text = text.lower().strip()
         if text.startswith("/reporte"):
             return InputType.REPORT
         if any(kw in text for kw in _REPORT_KEYWORDS):
             return InputType.REPORT
-        if getattr(message, "photo", None):
+        if has_photo:
             for kw in _SLEEP_KEYWORDS:
                 if kw in text:
                     return InputType.SLEEP_IMAGE
@@ -51,7 +51,7 @@ class Orchestrator:
             for kw in _CARDIO_KEYWORDS:
                 if kw in text:
                     return InputType.WORKOUT_CARDIO
-            return InputType.SLEEP_IMAGE  # default foto sin caption
+            return InputType.SLEEP_IMAGE
         for kw in _SLEEP_KEYWORDS:
             if kw in text:
                 return InputType.SLEEP_IMAGE
@@ -59,6 +59,11 @@ class Orchestrator:
             if kw in text:
                 return InputType.WORKOUT_CARDIO
         return InputType.TEXT
+
+    def classify(self, message) -> InputType:
+        text = getattr(message, "text", None) or getattr(message, "caption", None) or ""
+        has_photo = bool(getattr(message, "photo", None))
+        return self.classify_from(text=text, has_photo=has_photo)
 
     def get_primary_key(self, input_type: InputType) -> str:
         return _PRIMARY[input_type]
