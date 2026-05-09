@@ -33,12 +33,13 @@ async def synthesize_unified(
                 "Escribe como un solo coach hablando directamente, en lenguaje natural y fluido. "
                 "Reglas: "
                 "un solo bloque de texto sin títulos ni emojis de sección; "
-                "no repitas información redundante pero SÍ conserva los detalles específicos "
-                "y valiosos de cada agente: protocolos concretos, mecanismos fisiológicos, "
-                "números, horarios, ejercicios específicos, técnicas de respiración, etc.; "
+                "elimina solo la información duplicada, NUNCA un protocolo o detalle único: "
+                "protocolos concretos (luz matutina, respiración, corte de cafeína), "
+                "mecanismos fisiológicos, números, horarios, ejercicios y técnicas específicas "
+                "deben aparecer en el resultado aunque alarguen el mensaje; "
                 "prioriza lo más accionable para HOY; "
-                "tono directo sin preambles ('Hoy...', 'VFC...', no 'Como podemos ver...'). "
-                "Máximo 420 palabras."
+                "tono directo sin preambles. "
+                "Límite absoluto: 3800 caracteres (límite de Telegram)."
             ),
             messages=[{
                 "role": "user",

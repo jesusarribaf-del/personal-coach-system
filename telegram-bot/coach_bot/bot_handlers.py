@@ -166,6 +166,30 @@ class BotHandlers:
         await context.bot.send_chat_action(chat_id=msg.chat_id, action="typing")
         await self._run_agents(msg, context, photos=grp["photos"], text=grp["text"])
 
+    async def _send_long(self, message, text: str, chunk: int = 4000):
+        """Envía texto dividiéndolo si supera el límite de Telegram (4096 chars)."""
+        if len(text) <= chunk:
+            try:
+                await message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
+            except Exception:
+                await message.reply_text(text)
+            return
+        parts = []
+        while text:
+            if len(text) <= chunk:
+                parts.append(text)
+                break
+            split_at = text.rfind("\n", 0, chunk)
+            if split_at == -1:
+                split_at = chunk
+            parts.append(text[:split_at])
+            text = text[split_at:].lstrip("\n")
+        for part in parts:
+            try:
+                await message.reply_text(part, parse_mode=ParseMode.MARKDOWN)
+            except Exception:
+                await message.reply_text(part)
+
     async def _run_agents(self, message, context, photos: list, text: str):
         msg_context = {"text": text}
 
@@ -220,10 +244,7 @@ class BotHandlers:
 
         response = await synthesize_unified(self.api_key, primary_result, secondary_labeled)
 
-        try:
-            await message.reply_text(response, parse_mode=ParseMode.MARKDOWN)
-        except Exception:
-            await message.reply_text(response)
+        await self._send_long(message, response)
 
         if self._store:
             try:
