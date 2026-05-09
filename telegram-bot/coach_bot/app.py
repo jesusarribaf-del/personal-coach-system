@@ -25,6 +25,7 @@ _COACH_BOT_SUBMODULES = [
     "coach_bot.agents.memory_curator",
     "coach_bot.agents.life_coworker",
     "coach_bot.agents.report_designer",
+    "coach_bot.agents.addiction_coach",
 ]
 
 

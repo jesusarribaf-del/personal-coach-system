@@ -17,6 +17,7 @@ from coach_bot.agents.identity import IdentityCoach
 from coach_bot.agents.memory_curator import MemoryCurator
 from coach_bot.agents.life_coworker import LifeCoworker
 from coach_bot.agents.report_designer import ReportDesigner
+from coach_bot.agents.addiction_coach import AddictionCoach
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +33,7 @@ AGENT_LABELS = {
     "memory_curator": ("🗂️", "Memoria"),
     "life_coworker": ("🧠", "Coach"),
     "report_designer": ("📊", "Reporte"),
+    "addiction_coach": ("🕊️", "Allen Carr"),
 }
 
 
@@ -48,6 +50,7 @@ def build_agents(repo_path: str, api_key: str) -> dict:
         "memory_curator": MemoryCurator(repo_path, api_key),
         "life_coworker": LifeCoworker(repo_path, api_key),
         "report_designer": ReportDesigner(repo_path, api_key),
+        "addiction_coach": AddictionCoach(repo_path, api_key),
     }
 
 
@@ -216,7 +219,7 @@ class BotHandlers:
         msg_context["input_type"] = input_type.value
 
         primary_key = self.orchestrator.get_primary_key(input_type)
-        secondary_keys = self.orchestrator.get_secondary_keys(input_type)
+        secondary_keys = self.orchestrator.get_secondary_keys(input_type, text=text)
 
         primary_agent = self.agents[primary_key]
 
