@@ -15,15 +15,27 @@ class CoachBotApp(hass.Hass):
         self.api_key = self.args["anthropic_api_key"]
         self.repo_path = self.args["repo_path"]
         self.authorized_chat_id = int(self.args["authorized_chat_id"])
-        self.store_path     = self.args.get("store_path", "/config/coach_bot_staging/conv_store")
+        self.store_path = self.args.get("store_path", "/config/coach_bot_staging/conv_store")
         self.voyage_api_key = self.args.get("voyage_api_key")
+        self._shutdown_event = None
+        self._bot_app = None
 
         self.log("CoachBot: iniciando...")
         self._bot_thread = threading.Thread(target=self._run_bot, daemon=True, name="coach-bot")
         self._bot_thread.start()
 
-        # Schedule daily summary + purge at 02:00
         self.run_daily(self._trigger_daily_jobs, time(2, 0, 0))
+
+    def terminate(self):
+        """AppDaemon llama esto al detener/recargar la app. Cierra el bot limpiamente."""
+        self.log("CoachBot: cerrando bot...")
+        loop = getattr(self, "_bot_loop", None)
+        event = getattr(self, "_shutdown_event", None)
+        if loop and loop.is_running() and event is not None:
+            loop.call_soon_threadsafe(event.set)
+        if hasattr(self, "_bot_thread") and self._bot_thread.is_alive():
+            self._bot_thread.join(timeout=10)
+        self.log("CoachBot: bot cerrado.")
 
     def _trigger_daily_jobs(self, kwargs):
         if hasattr(self, "_summarizer") and self._summarizer:
@@ -61,7 +73,9 @@ class CoachBotApp(hass.Hass):
             context_builder=ctx_builder,
         )
 
-        app = Application.builder().token(self.bot_token).build()
+        self._bot_app = Application.builder().token(self.bot_token).build()
+        app = self._bot_app
+        self._shutdown_event = asyncio.Event()
 
         app.add_handler(CommandHandler("start", handlers.cmd_start))
         app.add_handler(CommandHandler("agentes", handlers.cmd_agentes))
@@ -73,8 +87,10 @@ class CoachBotApp(hass.Hass):
         )
 
         self.log("CoachBot: bot iniciado, escuchando Telegram...")
-        async with app:
-            await app.initialize()
-            await app.start()
-            await app.updater.start_polling(drop_pending_updates=True)
-            await asyncio.Event().wait()
+        await app.initialize()
+        await app.start()
+        await app.updater.start_polling(drop_pending_updates=True)
+        await self._shutdown_event.wait()
+        await app.updater.stop()
+        await app.stop()
+        await app.shutdown()
